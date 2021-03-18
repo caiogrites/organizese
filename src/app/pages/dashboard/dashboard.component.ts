@@ -93,7 +93,6 @@ export class DashboardComponent implements OnInit, DoCheck, AfterViewInit {
     this._store?.select(({ http_error, registers, dashboard, login }: any) => ({
       http_error,
       consolidado: dashboard.consolidado,
-      all: registers.all,
       autocomplete: dashboard.auto_complete,
       user: login.user
     })).subscribe(state => {
