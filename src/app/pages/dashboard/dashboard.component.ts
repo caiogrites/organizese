@@ -1,4 +1,4 @@
-import { Component, OnInit, DoCheck, KeyValueDiffers } from '@angular/core'
+import { Component, OnInit, DoCheck, KeyValueDiffers, AfterViewInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { ActionsSubject, Store } from '@ngrx/store'
 import { IpcService } from 'src/app/services/ipc.service'
@@ -14,6 +14,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog'
 import { Observable } from 'rxjs'
 import { FormControl } from '@angular/forms'
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete'
+import { LoadService } from 'src/app/services/load.service'
 
 @Component({
   selector: 'app-dashboard',
@@ -21,7 +22,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete'
   styleUrls: ['./dashboard.component.scss']
 })
 
-export class DashboardComponent implements OnInit, DoCheck {
+export class DashboardComponent implements OnInit, DoCheck, AfterViewInit {
   public menuList: any[] = [
     {
       link: '/',
@@ -59,6 +60,7 @@ export class DashboardComponent implements OnInit, DoCheck {
   public autocomplete: string[] = []
   public autocomplete$: Observable<string[]>
   public user: any
+  public isLoadingDashboard: boolean = true
 
   constructor(
     protected _ipcService?: IpcService,
@@ -69,8 +71,10 @@ export class DashboardComponent implements OnInit, DoCheck {
     protected _scrollService?: ScrollService,
     protected _router?: Router,
     protected _differs?: KeyValueDiffers,
-    protected _dialog?: MatDialog
+    protected _dialog?: MatDialog,
+    protected _loadService?: LoadService,
   ) {
+    this.logo = './assets/' + this.getTheme()
     this._router?.events.subscribe((u: any) => this.isActive = u.url)
     this._breakpoint?.observe([Breakpoints.XSmall]).subscribe(result => this.isMobile = !!result.matches)
 
@@ -85,16 +89,7 @@ export class DashboardComponent implements OnInit, DoCheck {
 
   public ngOnInit(): void {
     this.initialize()
-
-    // this._ipcService?.send('get', JSON.stringify({
-    //   collection_dashboard: 'collection_dashboard',
-    //   method: "POST",
-    //   payload: []
-    // }))
-    // this._ipcService?.on('got', (_: Electron.IpcMessageEvent, message: any) => {
-    //   console.log(message)
-    // })
-
+    this._scrollService?.getScrollAsStream().subscribe(per => this.buttonToTop = (per >= 30))
     this._store?.select(({ http_error, registers, dashboard, login }: any) => ({
       http_error,
       consolidado: dashboard.consolidado,
@@ -109,15 +104,11 @@ export class DashboardComponent implements OnInit, DoCheck {
         this.handleError(state.http_error.errors[0])
       }
     })
-
     this._as?.pipe(filter(a => a.type === actionsErrors.actionsTypes.SET_SUCCESS))
       .subscribe(({ payload }: any) => {
         const name: string = this.fetchNames(payload)
         this._snackbar?.open(`${name}`, 'Ok', { duration: 3000 })
       })
-
-    this._scrollService?.getScrollAsStream().subscribe(per => this.buttonToTop = (per >= 30))
-    this.logo = './assets/' + this.getTheme()
   }
 
   public ngDoCheck() {
@@ -127,8 +118,18 @@ export class DashboardComponent implements OnInit, DoCheck {
         if (item.key === 'isActive') {
           this._store?.dispatch(actionsRegister.GET_TAB({ payload: 'read' }))
         }
+        if (item.key === 'consolidado') {
+        }
       })
     }
+  }
+
+  public ngAfterViewInit() {
+    this._loadService?.httpProgress().subscribe((status: boolean) => {
+      if (!status && this.consolidado && this.user) {
+        this.isLoadingDashboard = false
+      }
+    })
   }
 
   private filterAutocomplete(value: string = ''): string[] {
@@ -242,7 +243,7 @@ export class DashboardComponent implements OnInit, DoCheck {
       if (localStorage.getItem('user-theme') === 'dark-mode') {
         return 'icon-default-dark-512x512.svg'
       } else {
-        return 'icon-default-white2-512x512.svg'
+        return 'icon-default-stroke-512x512.svg'
       }
     } else {
       return 'icon-deffault-transparent-512x512.svg'

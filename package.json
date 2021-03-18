@@ -118,9 +118,6 @@
       "!**/node_modules/.*"
     ],
     "linux": {
-      "desktop": {
-        "Encoding": "UTF-8"
-      },
       "target": [
         "deb"
       ],
@@ -130,11 +127,6 @@
     },
     "win": {
       "icon": "./build/linux/icon.icns",
-      "description": "Organize seus gastos e tenha o controle do seu dinheiro",
-      "category": "Utility",
-      "desktop": {
-        "Encoding": "UTF-8"
-      },
       "target": [
         {
           "target": "nsis",
@@ -148,11 +140,7 @@
     "mac": {
       "target": "tar.gz",
       "category": "public.app-category.developer-tools",
-      "icon": "./build/linux/icon.icns",
-      "description": "Organize seus gastos e tenha o controle do seu dinheiro",
-      "desktop": {
-        "Encoding": "UTF-8"
-      }
+      "icon": "./build/linux/icon.icns"
     }
   }
 }
