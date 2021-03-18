@@ -1,0 +1,30 @@
+<section class="main">
+  <app-title title="Dashboard" subtitle="geral"></app-title>
+
+  <div class="cards-main">
+    <app-cards *ngFor="let item of cards" [title]="item.title" [value]="item.value" [type]="item.type"></app-cards>
+  </div>
+  <div class="analise">
+    <app-title title="Análise"></app-title>
+    <mat-card>
+      <app-panel-control [filterByDays]="filterByDays" [aPagar]="aPagar" [aReceber]="aReceber" [total]="total"
+        [totalReceita]="totalReceita" [totalDespesa]="totalDespesa">
+      </app-panel-control>
+    </mat-card>
+  </div>
+  <div class="highchart">
+    <div class="col-7">
+      <app-title title="Despesas"></app-title>
+      <app-highcharts [evolucao]="EVOLUCAO_DESPESAS_DATA"></app-highcharts>
+    </div>
+
+    <div class="col-7">
+      <app-title title="Receitas"></app-title>
+      <app-highcharts [evolucao]="EVOLUCAO_DATA"></app-highcharts>
+    </div>
+  </div>
+
+  <div style="margin-bottom: 80px">
+    <app-list-registers *ngFor="let item of ELEMENT_DATA" [item]="item"></app-list-registers>
+  </div>
+</section>

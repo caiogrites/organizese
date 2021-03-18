@@ -1,0 +1,57 @@
+.offline {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .container-offline {
+    height: inherit;
+    width: inherit;
+    max-width: 600px;
+    max-height: 500px;
+    font-weight: 100;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .title {
+      text-align: center;
+      font-size: 2em;
+    }
+    .wifi-off {
+      text-align: center;
+      mat-icon {
+        font-size: 6em;
+        width: inherit;
+        height: inherit;
+      }
+    }
+    .causas,
+    .solucoes {
+      margin: 16px 0;
+    }
+    .suporte ul {
+      display: flex;
+      justify-content: space-between;
+    }
+    .suporte li {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-decoration: none;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .offline .container-offline {
+    max-width: 300px;
+  }
+  .offline .container-offline .suporte ul {
+    display: block;
+  }
+  .offline .container-offline .suporte li {
+    margin: 8px 0;
+  }
+}

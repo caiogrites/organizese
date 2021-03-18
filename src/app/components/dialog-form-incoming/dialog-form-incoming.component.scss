@@ -1,0 +1,19 @@
+@import "../../../styles.scss";
+
+.dialog {
+  .header {
+    width: 100%;
+    display: flex;
+    padding: 0 15px;
+  }
+  .title {
+    flex: 1;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .container-form-incoming {
+    padding: 15px;
+  }
+}

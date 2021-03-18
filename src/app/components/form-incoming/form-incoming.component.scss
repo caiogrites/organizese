@@ -1,0 +1,51 @@
+@import "../../../styles.scss";
+
+.form-incoming {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 8px;
+  .form-inline {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    .form {
+      width: 49%;
+    }
+    .form-textarea {
+      width: 100%;
+    }
+    .mat-option{
+      padding: 0 16px;
+    }
+  }
+  .container-button {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    max-width: 270px;
+    margin: 0 auto;
+  }
+  button {
+    @include custom-button-icon-width-text;
+  }
+}
+
+@media (max-width: 768px) {
+  .form-incoming .form-inline {
+    flex-direction: column;
+    .form {
+      width: 100%;
+    }
+  }
+  .form-incoming .container-button {
+    flex-direction: column;
+    button {
+      max-width: 100%;
+      margin: 8px 0;
+    }
+  }
+}

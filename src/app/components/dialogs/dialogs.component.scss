@@ -1,0 +1,89 @@
+@import "../../../styles.scss";
+
+$padding-size: 15px;
+.dialog {
+  height: 100%;
+  .dialog-container.detail,
+  .dialog-container.login {
+    width: inherit;
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .header {
+      width: 100%;
+      display: flex;
+      padding: 0 $padding-size;
+    }
+    .title {
+      flex: 1;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .title.login {
+      text-transform: uppercase;
+    }
+    .content-dialog {
+      padding: 22px;
+      flex: 1;
+      justify-content: space-evenly;
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      .line {
+        width: 100%;
+      }
+      .description {
+        font-size: 14px;
+      }
+      .status {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        flex-direction: row;
+      }
+      p {
+        text-align: center;
+      }
+      .categoria {
+        font-size: 35px;
+      }
+      .valor {
+        display: flex;
+        flex-direction: column;
+        .cards-money-on,
+        .cards-money-off {
+          font-size: 60px;
+        }
+      }
+      // .status small,
+      // .categoria small,
+      // .tipo small {
+      //   display: flex;
+      //   align-items: center;
+      //   min-height: 24px;
+      // }
+      // .valor {
+      //   align-items: flex-start;
+      // }
+      // .line {
+      //   display: flex;
+      // }
+    }
+    .container-footer {
+      padding: $padding-size;
+      display: flex;
+      align-items: center;
+      .container-tools {
+        flex: 1;
+        display: flex;
+      }
+      .date span {
+        font-size: 12px;
+      }
+    }
+  }
+  
+}

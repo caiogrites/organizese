@@ -1,0 +1,44 @@
+@import '../../../styles.scss';
+.cards {
+  min-height: 78.33px;
+  overflow: hidden;
+  margin: 8px 0;
+  padding: 16px;
+  width: 100%;
+  h1 {
+    font-weight: 500;
+  }
+  .cards-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .cards-title {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .cards-title span {
+    font-size: 18px;
+    font-weight: 300;
+    margin-right: 8px;
+    display: inline-block;
+  }
+  .cards-cash {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    flex-direction: column;
+    margin: 16px 0;
+  }
+  .cards-debit {
+    color: var(--text-accent)
+  }
+  .cards-label {
+    font-size: 12px;
+    font-weight: 100;
+  }
+}

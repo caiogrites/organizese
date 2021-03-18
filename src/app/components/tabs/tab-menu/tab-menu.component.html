@@ -1,0 +1,6 @@
+<li *ngIf="visible" class="tab-menu">
+  <button class="btn-tab" (click)="selectedTab()" type="button" mat-raised-button [ngStyle]="{'opacity': tabActive ? '0.5' : ''}">
+    <mat-icon>{{icon}}</mat-icon>
+    <span>{{label}}</span>
+  </button>
+</li>

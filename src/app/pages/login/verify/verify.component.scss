@@ -1,0 +1,36 @@
+@import '../../../../styles.scss';
+
+.verify,
+.container-verify {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.verify {
+  width: 100%;
+  height: 100%;
+
+  .container-verify {
+    max-width: 1280px;
+    width: inherit;
+    height: inherit;
+    flex-direction: column;
+    h1 {
+      font-family: "Kanit" serif;
+      font-size: 2.5em;
+      letter-spacing: 0.05em;
+    }
+    .not-verified {
+      color: var(--text-accent);
+    }
+    .verified {
+      color: #009688;
+    }
+    p{
+      margin: 16px 0;
+    }
+    button {
+      @include custom-button-icon-width-text;
+    }
+  }
+}

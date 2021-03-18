@@ -1,0 +1,44 @@
+.main {
+  .cards-main {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    app-cards {
+      width: 32.33%;
+    }
+  }
+  .highchart {
+    display: flex;
+    justify-content: space-between;
+    .col-7 {
+      flex: 1;
+      margin: 16px 0;
+    }
+    .col-4 {
+      width: 32%;
+    }
+  }
+  .analise {
+    margin: 16px 0;
+  }
+}
+@media (max-width: 600px) {
+  .main .cards-main {
+    flex-direction: column;
+    app-cards {
+      width: 100%;
+    }
+  }
+}
+@media (max-width: 1250px) {
+  .main .highchart {
+    flex-direction: column;
+    .col-7 {
+      width: 100%;
+    }
+    .col-4 {
+      width: 100%;
+    }
+  }
+}

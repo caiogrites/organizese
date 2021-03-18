@@ -1,0 +1,75 @@
+<section #contentDialog class="dialog">
+  <div *ngIf="type === 'details'" class="dialog-container detail">
+
+    <div class="header dialog-header-mode">
+      <div class="title">{{detail.description}}</div>
+      <div class="max-window">
+        <button type="button" mat-icon-button disableRipple="true" (click)="close()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class="content-dialog">
+      <div class="line">
+        <p class="categoria">
+          <span>{{detail.category}} <mat-icon>{{detail.cat_icon}}</mat-icon></span>
+        </p>
+        <p class="description">
+          <span>{{detail.description}}</span>
+        </p>
+      </div>
+      <p class="valor">
+        <span [ngClass]="{'cards-money-on':detail.type === 'incoming','cards-money-off':detail.type === 'outcoming'}">
+          <small *ngIf="detail.type === 'outcoming'">-</small>
+          R$ {{formatarValor(detail.value)}}
+        </span>
+      </p>
+    </div>
+    <div class="container-footer">
+      <div class="container-tools">
+        <p class="save" title="salvar">
+          <button disableRipple="true" (click)="edit(detail)" mat-icon-button type="button">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </p>
+        <p class="download" title="download">
+          <button disableRipple="true" (click)="btnDownload(detail)" mat-icon-button type="button">
+            <mat-icon>download</mat-icon>
+          </button>
+        </p>
+        <p class="save" title="salvar">
+          <button disabled (click)="btnSave()" mat-icon-button type="button">
+            <mat-icon>save</mat-icon>
+          </button>
+        </p>
+        <p class="share" title="compartilhar">
+          <button disabled (click)="btnShare()" mat-icon-button type="button">
+            <mat-icon>share</mat-icon>
+          </button>
+        </p>
+        <p class="save" title="salvar">
+          <button disableRipple="true" (click)="del(detail)" mat-icon-button type="button">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </p>
+      </div>
+      <p class="date">
+        <span>{{detail.created_at * 1000 | date:'medium'}}</span>
+      </p>
+    </div>
+  </div>
+
+  <div *ngIf="type === 'login'" class="dialog-container login">
+    <mat-progress-bar *ngIf="showProgressbar" mode="indeterminate"></mat-progress-bar>
+    <div class="header dialog-header-mode">
+      <div class="title login">Login</div>
+      <div class="max-window">
+        <button type="button" mat-icon-button disableRipple="true" (click)="close()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+    <app-login dialog="dialog" (trigger)="onTrigger($event)" style="height: inherit;"></app-login>
+  </div>
+</section>

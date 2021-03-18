@@ -1,0 +1,44 @@
+<form [formGroup]="formLogin" class="container-form" (ngSubmit)="onSubmit($event)">
+  <div class="form-inline">
+    <mat-form-field class="form" floatLabel="always" appearance="outline">
+      <mat-label>Email</mat-label>
+      <input formControlName="email" type="email" matInput placeholder="E-mail" required>
+      <mat-error>Email é obrigatório</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="form-inline">
+    <mat-form-field class="form" floatLabel="always" appearance="outline">
+      <mat-label>Senha</mat-label>
+      <input formControlName="password" [type]="textIcon" matInput placeholder="Senha" required>
+      <mat-icon style="cursor: pointer;" (click)="changeVisibility(textIcon)" matSuffix>{{changeIcon}}</mat-icon>
+      <mat-error *ngIf="formLogin.get('password')?.hasError('required')">
+        Senha é obrigatória
+      </mat-error>
+      <mat-error *ngIf="formLogin.get('password')?.hasError('minlength')">
+        Mínimo de 6 caracteres
+      </mat-error>
+      <mat-error *ngIf="formLogin.get('password')?.hasError('maxlength')">
+        Máximo de 24 caracteres
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="container-forget">
+    <p (click)="forgetPassword(changeTextLogin)" class="forget-password">
+      <small>Esqueci a senha</small>
+    </p>
+    <p (click)="noAccount(changeTextLogin)" class="no-account">
+      <small>Não tenho conta</small>
+    </p>
+  </div>
+
+  <div class="checkbox">
+    <mat-checkbox formControlName="keep_connect">Manter conectado</mat-checkbox>
+  </div>
+
+  <div class="container-buttons">
+    <button [disabled]="!formLogin.valid || isLoading" type="submit" mat-raised-button>Login</button>
+    <button (click)="close(dialog)" type="button" color="accent" mat-raised-button>{{isLoginText}}</button>
+  </div>
+</form>

@@ -1,0 +1,294 @@
+@import "../../../../styles.scss";
+
+.registers {
+  .control {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    ::ng-deep .mat-form-field-appearance-outline .mat-form-field-flex {
+      padding: 12px;
+    }
+    ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+      padding: 0;
+    }
+    ::ng-deep .mat-form-field-wrapper {
+      padding-bottom: 0;
+    }
+    ::ng-deep .mat-form-field-infix {
+      border-top: 0;
+    }
+    ::ng-deep .mat-input-element {
+      font-size: 14px;
+      height: 20px;
+    }
+    ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+      padding: 0px;
+    }
+    ::ng-deep .mat-select-arrow-wrapper {
+      display: block;
+    }
+    ::ng-deep .mat-select-placeholder {
+      font-size: 14px;
+    }
+    ::ng-deep .mat-select-trigger {
+      font-size: 14px;
+    }
+    .btn-menu {
+      flex: 1;
+    }
+  }
+  .control .form {
+    max-width: 150px;
+  }
+  .control.forms {
+    justify-content: space-between;
+  }
+  .container-cards {
+    .cards {
+      display: flex;
+      margin: 8px 0;
+      align-items: center;
+    }
+    .value,
+    .category,
+    .data,
+    .description {
+      width: 25%;
+    }
+    .value {
+      max-width: 120px;
+    }
+    .category {
+      max-width: 120px;
+    }
+    .date {
+      max-width: 120px;
+    }
+    .actions {
+      max-width: 30px;
+    }
+    .itens {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      span {
+        font-size: 14px;
+      }
+      strong {
+        font-size: 12px;
+        font-weight: 100;
+      }
+    }
+  }
+  .create {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px;
+  }
+  .container-cards-mobile {
+    mat-card {
+      margin: 8px 0;
+    }
+    strong {
+      font-weight: 100;
+    }
+    .line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      p {
+        font-size: 14px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+      p.menu {
+        width: 30px;
+      }
+      p.value {
+        flex: 1;
+      }
+    }
+  }
+  .content-detail {
+    display: flex;
+    .col {
+      flex: 1;
+    }
+  }
+  .panel-header {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 16px;
+    .container-buttons {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+  .container-valores {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+    flex-wrap: wrap;
+  }
+  .progress {
+    height: 1px;
+    position: relative;
+    transition: all 0.3s;
+    background-color: var(--text-green);
+    width: 100%;
+    .encapsulate {
+      background-color: var(--text-accent);
+      height: 1px;
+    }
+  }
+}
+.control.mobile {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px;
+
+  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: transparent;
+  }
+  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-flex {
+    padding: 12px;
+  }
+  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 0;
+  }
+  ::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 0;
+  }
+  ::ng-deep .mat-form-field-infix {
+    border-top: 0;
+  }
+  ::ng-deep .mat-input-element {
+    font-size: 14px;
+    height: 20px;
+  }
+  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 0px;
+  }
+  ::ng-deep .mat-select-arrow-wrapper {
+    display: block;
+  }
+  ::ng-deep .mat-select-placeholder {
+    font-size: 14px;
+  }
+}
+
+$marginTopButton: 25px;
+
+.container-imprimir {
+  max-width: 950px;
+  margin: 0 auto;
+  text-align: center;
+  .hedaer-print {
+    margin: $marginTopButton 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    .logo {
+      width: 100%;
+      max-width: 50px;
+      padding: 16px 8px;
+      img {
+        width: 100%;
+      }
+    }
+    small {
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+    }
+  }
+  .header-user {
+    text-align: left;
+    margin: $marginTopButton 0;
+    max-width: 50%;
+    display: flex;
+    justify-content: space-between;
+    p {
+      display: flex;
+      justify-content: flex-start;
+      flex-direction: column;
+    }
+  }
+  table {
+    width: 100%;
+    margin: $marginTopButton 0;
+    text-align: left;
+    font-size: 14px;
+    border-collapse: collapse;
+    font-weight: 400;
+    th {
+      text-transform: uppercase;
+      font-weight: 400;
+      text-align: left;
+    }
+    tbody td {
+      padding: 4px 0;
+    }
+  }
+  .btn-print {
+    @include custom-button-icon-width-text;
+  }
+  .total-geral {
+    font-weight: 700;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .registers .create {
+    flex-direction: column;
+  }
+  .btn-classificar {
+    @include custom-button-icon-width-text;
+  }
+  .registers .control {
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .container-imprimir table thead {
+    display: none;
+  }
+  .container-imprimir table,
+  .container-imprimir table tbody,
+  .container-imprimir table tr,
+  .container-imprimir table td {
+    display: block;
+    width: 100%;
+  }
+  .container-imprimir table tr {
+    margin-bottom: 15px;
+  }
+  .container-imprimir table tbody tr td {
+    text-align: right;
+    padding-left: 50%;
+    position: relative;
+  }
+  .container-imprimir table tbody tr td:before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+  }
+}
+
+@media print {
+  .registers .tabs,
+  .registers .control,
+  .container-imprimir .btn-print {
+    display: none;
+  }
+  .container-valores p {
+    font-size: 12px;
+  }
+}

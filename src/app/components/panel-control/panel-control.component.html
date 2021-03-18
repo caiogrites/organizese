@@ -1,0 +1,20 @@
+<div class="container-valores">
+  <p>
+    <small>A receber:</small>R$ {{formatarValor(aReceber || 0)}}
+  </p>
+  <p>
+    <small>A pagar:</small>R$ {{formatarValor(aPagar || 0)}}
+  </p>
+  <p>
+    <small>Gastos:</small>R$ {{formatarValor(totalDespesa || 0)}}
+  </p>
+  <p>
+    <small>Receita:</small>R$ {{formatarValor(totalReceita || 0)}}
+  </p>
+  <p>
+    <small>Média:</small>R$ {{formatarValor((totalDespesa / filterByDays) || 0)}}
+  </p>
+  <p>
+    <small>Período de:</small>{{filterByDays || 0}} dias
+  </p>
+</div>

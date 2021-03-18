@@ -1,0 +1,81 @@
+<div class="dashboard">
+  <mat-drawer-container class="container">
+    <mat-drawer #drawer mode="over" opened="false">
+      <ul class="app-menu-list">
+        <li [ngClass]="{'link-active': isActive === item.link}" (click)="drawer.toggle()" *ngFor="let item of menuList"
+          [routerLink]="item.link">
+          <a>
+            <mat-icon>{{item.icon}}</mat-icon>
+          </a>
+          <span>{{item.name}}</span>
+        </li>
+        <li (click)="logout()" class="btn-logout">
+          <a>
+            <mat-icon>logout</mat-icon>
+          </a>
+          <span>Sair</span>
+        </li>
+      </ul>
+    </mat-drawer>
+    <mat-drawer-content>
+      <div class="sidebar bg-mode">
+        <ul class="app-menu-list">
+          <li [ngClass]="{'link-active': isActive === item.link}" *ngFor="let item of menuList"
+            [routerLink]="item.link">
+            <a>
+              <mat-icon>{{item.icon}}</mat-icon>
+            </a>
+          </li>
+          <li (click)="logout()" class="btn-logout">
+            <a>
+              <mat-icon>logout</mat-icon>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="content-pages">
+        <mat-toolbar>
+          <mat-toolbar-row class="app-custom-toolbar-row">
+            <button mat-icon-button (click)="drawer.open()">
+              <mat-icon>menu</mat-icon>
+            </button>
+
+            <div *ngIf="!isMobile" class="menu-toolbar">
+              <form (ngSubmit)="onSubmit()">
+                <mat-form-field class="form form-search" appearance="outline">
+                  <input type="text" [formControl]="searchTerms" [matAutocomplete]="auto" autocomplete="off"
+                    name="searchTerms" matInput placeholder="Procurar">
+                  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="setSearch($event)">
+                    <mat-option *ngFor="let option of autocomplete$ | async" [value]="option">{{option}}</mat-option>
+                  </mat-autocomplete>
+                  <mat-icon *ngIf="!searchTerms.value" matSuffix>search</mat-icon>
+                  <mat-icon *ngIf="searchTerms.value" (click)="searchTerms.reset()" style="cursor: pointer;" matSuffix>
+                    close
+                  </mat-icon>
+                </mat-form-field>
+              </form>
+            </div>
+
+            <div class="prev-consolidado">
+              <span>Consolidado</span>
+              <span [ngClass]="returnClass()">R$ {{ formatarValor(consolidado || 0) }}</span>
+            </div>
+
+            <button mat-icon-button style="margin-right: auto;">
+              <mat-icon>account_circle</mat-icon>
+            </button>
+          </mat-toolbar-row>
+        </mat-toolbar>
+
+        <!-- router-outlet só funciona se existir router children -->
+        <div class="pages">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </mat-drawer-content>
+  </mat-drawer-container>
+  <button (click)="goToTop()" *ngIf="buttonToTop" mat-fab color="primary" class="button-top">
+    <mat-icon>keyboard_arrow_up</mat-icon>
+  </button>
+</div>

@@ -1,0 +1,9 @@
+@import "../../../../styles.scss";
+
+.tab-menu {
+  display: flex;
+  list-style: none;
+}
+.btn-tab {
+  @include custom-button-icon-width-text;
+}

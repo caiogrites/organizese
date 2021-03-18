@@ -1,0 +1,65 @@
+@import "../../../../styles.scss";
+
+.signup {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  .progress-bar {
+    position: absolute;
+    top: 0;
+  }
+  .container-signup {
+    height: 100%;
+  }
+  .container-signup p.title {
+    @include title-login;
+  }
+  .container-signup,
+  .container-form,
+  .container-buttons,
+  .form-inline,
+  .container-forget,
+  .checkbox,
+  .form {
+    width: inherit;
+  }
+  .form-inline,
+  .container-buttons,
+  .container-forget,
+  .checkbox {
+    max-width: 384px;
+  }
+  .container-form,
+  .container-signup {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+  .container-buttons,
+  .container-forget {
+    justify-content: space-between;
+    display: flex;
+  }
+  .container-forget p {
+    flex: 1;
+    text-decoration: underline;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+  .container-buttons button {
+    @include custom-button-icon-width-text;
+  }
+  .checkbox,
+  .container-buttons {
+    text-align: left;
+    margin: 16px 0;
+  }
+}
+@media screen and (max-width: 600px) {
+  .container-form {
+    padding: 16px;
+  }
+}

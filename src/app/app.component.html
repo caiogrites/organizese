@@ -1,0 +1,59 @@
+<router-outlet *ngIf="isOnline && !isLoading; else load"></router-outlet>
+
+<ng-template #load>
+  <section class="offline">
+    <div *ngIf="isError" class="container-offline">
+      <p class="title">Página Offline</p>
+      <p class="wifi-off">
+        <mat-icon>wifi_off</mat-icon>
+      </p>
+      <div class="causas">
+        <p>Possíveis causas:</p>
+        <ul>
+          <li>O Servidor está fora do ar <small>(caiu)</small></li>
+          <li>Sem conexão com a internet</li>
+        </ul>
+      </div>
+
+      <div class="solucoes">
+        <p>Soluções:</p>
+        <ul>
+          <li>Recarregar a página <small>refresh</small></li>
+          <li>Verificar sua conexão com a internet</li>
+          <li>Entrar em contato com suporte</li>
+        </ul>
+      </div>
+
+      <div class="suporte">
+        <p>Suporte:</p>
+        <ul>
+          <li>
+            <span>Desenvolvedor:</span>
+            <small>Roberto Rosa</small>
+          </li>
+          <li>
+            <span>Email:</span>
+            <small>roberto.rosa7@gmail.com</small>
+          </li>
+          <li>
+            <span>LinkedIn</span>
+            <small>
+              <a [ngStyle]="{'color': isDark ? 'white' : '#212121'}"
+                href="https://www.linkedin.com/in/roberto-rosa-da-silva-71911259/">Perfil</a>
+            </small>
+          </li>
+          <li>
+            <span>Whatsapp</span>
+            <small>+55 11 94161-6008</small>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div *ngIf="isLoading" class="loading">
+      <img width="150" [src]="logo" alt="logo">
+      <mat-spinner diameter="45"></mat-spinner>
+    </div>
+
+  </section>
+</ng-template>
