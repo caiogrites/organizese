@@ -1,6 +1,6 @@
-<router-outlet *ngIf="isOnline && !isLoading; else load"></router-outlet>
+<router-outlet></router-outlet>
 
-<ng-template #load>
+<!-- <ng-template #load>
   <section class="offline">
     <div *ngIf="isError" class="container-offline">
       <p class="title">Página Offline</p>
@@ -54,4 +54,4 @@
       <mat-spinner diameter="45"></mat-spinner>
     </div>
   </section>
-</ng-template>
+</ng-template> -->

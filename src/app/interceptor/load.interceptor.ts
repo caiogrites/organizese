@@ -22,7 +22,6 @@ export class LoadInterceptor implements HttpInterceptor {
     this.count++
 
     return next.handle(request).pipe(
-      delay(3000),
       finalize(() => {
         this.count--
         if (this.count === 0) {

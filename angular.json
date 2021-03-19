@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "primeiro-app": {
+    "organizese": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -53,13 +53,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "1000mb",
+                  "maximumError": "1000mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "1000mb",
+                  "maximumError": "1000mb"
                 }
               ]
             }
@@ -68,18 +68,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "primeiro-app:build"
+            "browserTarget": "organizese:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "primeiro-app:build:production"
+              "browserTarget": "organizese:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "primeiro-app:build"
+            "browserTarget": "organizese:build"
           }
         },
         "test": {
@@ -116,18 +116,18 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "primeiro-app:serve"
+            "devServerTarget": "organizese:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "primeiro-app:serve:production"
+              "devServerTarget": "organizese:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "primeiro-app",
+  "defaultProject": "organizese",
   "cli": {
     "analytics": "ea295eb6-2ff5-4299-b81d-57b744a47e77"
   }

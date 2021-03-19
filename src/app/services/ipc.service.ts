@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core'
 import { IpcRenderer } from 'electron'
 
 export interface window {
@@ -15,27 +15,27 @@ export class IpcService {
   constructor() {
     if (window.require) {
       try {
-        this._ipc = window.require('electron').ipcRenderer;
-        console.group('%cBem-vindo ao Primeiro App', "color: #2196F3;");
+        this._ipc = window.require('electron').ipcRenderer
+        console.group('%cBem-vindo ao Organizese App', "color: #2196F3")
       } catch (e) {
-        throw e;
+        throw e
       }
     } else {
-      console.log('%cElectron\'s IPC was not loaded', "color: #2196f3;");
+      console.group('%cBem-vindo ao Organizese Web', "color: #2196F3")
     }
   }
 
   public on(channel: string, listener: any): void {
     if (!this._ipc) {
-      return;
+      return
     }
-    this._ipc.on(channel, listener);
+    this._ipc.on(channel, listener)
   }
 
   public send(channel: string, ...args: any): void {
     if (!this._ipc) {
-      return;
+      return
     }
-    this._ipc.send(channel, ...args);
+    this._ipc.send(channel, ...args)
   }
 }

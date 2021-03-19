@@ -1,4 +1,4 @@
-<section class="main">
+<section *ngIf="!isMainLoading; else loading" class="main">
   <app-title title="Dashboard" subtitle="geral"></app-title>
 
   <div class="cards-main">
@@ -28,3 +28,7 @@
     <app-list-registers *ngFor="let item of ELEMENT_DATA" [item]="item"></app-list-registers>
   </div>
 </section>
+
+<ng-template #loading>
+  <app-loader></app-loader>
+</ng-template>

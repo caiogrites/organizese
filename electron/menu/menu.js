@@ -1,4 +1,4 @@
-const { Menu, shell } = require("electron");
+const { Menu, shell, ipcMain } = require("electron");
 
 module.exports = function menu() {
   const isMac = process.platform === "darwin";
@@ -7,21 +7,21 @@ module.exports = function menu() {
     // { role: 'appMenu' }
     ...(isMac
       ? [
-          {
-            label: app.name,
-            submenu: [
-              { role: "about", label: "sobre" },
-              { type: "separator" },
-              { role: "services", label: "serviços" },
-              { type: "separator" },
-              { role: "hide", label: "esconder" },
-              // { role: "hideothers" },
-              // { role: "unhide" },
-              // { type: "separator" },
-              { role: "quit", label: "Sair" },
-            ],
-          },
-        ]
+        {
+          label: app.name,
+          submenu: [
+            { role: "about", label: "sobre" },
+            { type: "separator" },
+            { role: "services", label: "serviços" },
+            { type: "separator" },
+            { role: "hide", label: "esconder" },
+            // { role: "hideothers" },
+            // { role: "unhide" },
+            // { type: "separator" },
+            { role: "quit", label: "Sair" },
+          ],
+        },
+      ]
       : []),
     // { role: 'fileMenu' }
     {
@@ -44,20 +44,20 @@ module.exports = function menu() {
         { role: "paste", label: "Colar" },
         ...(isMac
           ? [
-              { role: "pasteAndMatchStyle" },
-              { role: "delete" },
-              { role: "selectAll" },
-              { type: "separator" },
-              {
-                label: "Speech",
-                submenu: [{ role: "startSpeaking" }, { role: "stopSpeaking" }],
-              },
-            ]
+            { role: "pasteAndMatchStyle" },
+            { role: "delete" },
+            { role: "selectAll" },
+            { type: "separator" },
+            {
+              label: "Speech",
+              submenu: [{ role: "startSpeaking" }, { role: "stopSpeaking" }],
+            },
+          ]
           : [
-              { role: "delete", label: "Excluir" },
-              { type: "separator" },
-              { role: "selectAll", label: "Selecionar Tudo" },
-            ]),
+            { role: "delete", label: "Excluir" },
+            { type: "separator" },
+            { role: "selectAll", label: "Selecionar Tudo" },
+          ]),
       ],
     },
     // { role: 'viewMenu' }

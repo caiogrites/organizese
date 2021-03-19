@@ -6,6 +6,7 @@ import { DashboardComponent } from '../dashboard.component'
 import * as actionsDashboard from '../../../actions/dashboard.actions'
 import { Router } from '@angular/router'
 import { MatDialog } from '@angular/material/dialog'
+import { delay, map } from 'rxjs/operators'
 
 @Component({
   selector: 'app-main',
@@ -46,7 +47,7 @@ export class MainComponent extends DashboardComponent implements OnInit, DoCheck
   public total: number = 0
   public filterByDays: number = 0
   public differ: any
-  public teste: any
+  public isMainLoading: boolean = true
   public teste2: any
 
   constructor(
@@ -57,15 +58,16 @@ export class MainComponent extends DashboardComponent implements OnInit, DoCheck
     protected _differs: KeyValueDiffers
   ) {
     super()
+    this.differ = this._differs.find({}).create()
     this._store.dispatch(actionsDashboard.FETCH_EVOLUCAO())
     this._store.dispatch(actionsDashboard.FETCH_EVOLUCAO_DESPESAS())
-    this.differ = this._differs.find({}).create()
   }
 
   public ngDoCheck() {
     const change = this.differ.diff(this)
     if (change) {
-      change.forEachChangedItem((item: any) => { })
+      change.forEachChangedItem((item: any) => {
+      })
     }
   }
 
@@ -84,17 +86,21 @@ export class MainComponent extends DashboardComponent implements OnInit, DoCheck
       total_credit: dashboard.consolidado.total_credit,
       total_debit: dashboard.consolidado.total_debit,
       all_days_period: registers.all_days_period
-    })).subscribe(state => {
-      this.total = state.total_geral
-      this.totalDespesa = state.total_debit
-      this.totalReceita = state.total_credit
-      this.aPagar = state.a_pagar
-      this.aReceber = state.a_receber
-      this.filterByDays = state.all_days_period
-      this.ELEMENT_DATA = state.all.splice(0, 7)
-      this.EVOLUCAO_DATA = state.evolucao
-      this.EVOLUCAO_DESPESAS_DATA = state.evoucao_despesas
-
+    })).pipe(
+      delay(1000),
+      map((state) => {
+        this.total = state.total_geral
+        this.totalDespesa = state.total_debit
+        this.totalReceita = state.total_credit
+        this.aPagar = state.a_pagar
+        this.aReceber = state.a_receber
+        this.filterByDays = state.all_days_period
+        this.ELEMENT_DATA = state.all.splice(0, 7)
+        this.EVOLUCAO_DATA = state.evolucao
+        this.EVOLUCAO_DESPESAS_DATA = state.evoucao_despesas
+        return state
+      }),
+    ).subscribe(state => {
       this.cards.forEach(value => {
         switch (value.type) {
           case 'incoming':
@@ -108,6 +114,9 @@ export class MainComponent extends DashboardComponent implements OnInit, DoCheck
             break
         }
       })
+      if (this.EVOLUCAO_DATA && this.EVOLUCAO_DESPESAS_DATA) {
+        this.isMainLoading = false
+      }
     })
   }
 }

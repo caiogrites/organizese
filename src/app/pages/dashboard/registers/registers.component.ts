@@ -64,7 +64,8 @@ export class RegistersComponent extends DashboardComponent implements OnInit, Af
   ) {
     super()
     _breakpointObserver.observe([Breakpoints.XSmall]).subscribe(result => this.isMobile = !!result.matches)
-    this.differ = this._differs.find({}).create();
+    this.differ = this._differs.find({}).create()
+    this.logo = './assets/' + this.getTheme()
   }
 
   public ngOnInit(): void {
@@ -102,7 +103,6 @@ export class RegistersComponent extends DashboardComponent implements OnInit, Af
       }
 
       this.orderby ? this.makingOrdering(this.orderby) : this.ELEMENT_DATA = this.classificar(state.all)
-      this.logo = './assets/' + this.getTheme()
     })
   }
 

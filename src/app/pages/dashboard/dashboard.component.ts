@@ -124,11 +124,9 @@ export class DashboardComponent implements OnInit, DoCheck, AfterViewInit {
   }
 
   public ngAfterViewInit() {
-    this._loadService?.httpProgress().subscribe((status: boolean) => {
-      if (!status && this.consolidado && this.user) {
-        this.isLoadingDashboard = false
-      }
-    })
+    if (!status && this.consolidado && this.user) {
+      this.isLoadingDashboard = false
+    }
   }
 
   private filterAutocomplete(value: string = ''): string[] {

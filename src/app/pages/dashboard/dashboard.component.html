@@ -1,5 +1,5 @@
 <div class="dashboard">
-  <mat-drawer-container *ngIf="!isLoadingDashboard; else showIsLoading" class="container">
+  <mat-drawer-container class="container">
     <mat-drawer #drawer mode="over" opened="false">
       <ul class="app-menu-list">
         <li [ngClass]="{'link-active': isActive === item.link}" (click)="drawer.toggle()" *ngFor="let item of menuList"
@@ -78,12 +78,4 @@
   <button (click)="goToTop()" *ngIf="buttonToTop" mat-fab color="primary" class="button-top">
     <mat-icon>keyboard_arrow_up</mat-icon>
   </button>
-  <ng-template #showIsLoading>
-    <div class="loading">
-      <div class="load">
-        <img width="150" [src]="logo" alt="logo">
-        <mat-spinner diameter="45"></mat-spinner>
-      </div>
-    </div>
-  </ng-template>
 </div>

@@ -25,6 +25,7 @@ import { DialogsComponent } from '../../components/dialogs/dialogs.component';
 import { PanelControlComponent } from '../../components/panel-control/panel-control.component'
 import { MaterialModule } from "src/app/material.module"
 import { NgxMaskModule } from 'ngx-mask'
+import { LoaderComponent } from "src/app/components/loader/loader.component"
 
 const routes: Routes = [
   {
@@ -69,6 +70,7 @@ registerLocaleData(localePt, 'pt')
     ListRegistersComponent,
     HighchartsComponent,
     PanelControlComponent,
+    LoaderComponent,
   ],
   imports: [
     RouterModule.forChild(routes),

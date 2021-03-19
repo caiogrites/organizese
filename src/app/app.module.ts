@@ -25,6 +25,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http'
 import { DashboardInterceptor } from './interceptor/dashboard.interceptor'
 import { NgxMaskModule } from 'ngx-mask'
 import { LoadInterceptor } from './interceptor/load.interceptor';
+import { LoaderComponent } from './components/loader/loader.component';
 
 registerLocaleData(localePt, 'pt-BR')
 

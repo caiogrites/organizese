@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoadService } from 'src/app/services/load.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 export class SignInComponent implements OnInit {
 
   constructor(
-    private _router: Router
+    private _router: Router,
   ) { }
 
   public ngOnInit(): void {
