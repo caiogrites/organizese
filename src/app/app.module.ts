@@ -7,7 +7,7 @@ import { DBConfig, NgxIndexedDBModule } from 'ngx-indexed-db'
 import { StoreModule } from '@ngrx/store'
 import { EffectsModule } from '@ngrx/effects'
 import { StoreDevtoolsModule } from '@ngrx/store-devtools'
-import { PrimeiroAppStore } from './store/primeiroapp.store'
+import { OrganizeseStore } from './store/organizese.store'
 import { RegistersEffect } from './effects/registers.effects'
 import { DashboardEffect } from './effects/dashboard.effects'
 import { registerLocaleData } from '@angular/common'
@@ -24,16 +24,15 @@ import { LoginEffect } from './effects/login.effects'
 import { HTTP_INTERCEPTORS } from '@angular/common/http'
 import { DashboardInterceptor } from './interceptor/dashboard.interceptor'
 import { NgxMaskModule } from 'ngx-mask'
-import { LoadInterceptor } from './interceptor/load.interceptor';
-import { LoaderComponent } from './components/loader/loader.component';
+import { LoadInterceptor } from './interceptor/load.interceptor'
 
 registerLocaleData(localePt, 'pt-BR')
 
 const indexedConfig: DBConfig = {
-  name: 'PrimeiroApp',
+  name: 'organizese',
   version: 3, // only work on this version
   objectStoresMeta: [{
-    store: 'PrimeiroApp',
+    store: 'organizese',
     storeConfig: { keyPath: 'id', autoIncrement: true },
     storeSchema: []
   }],
@@ -52,7 +51,7 @@ const indexedConfig: DBConfig = {
     LoginModule,
     NgxMaskModule.forRoot(),
     NgxIndexedDBModule.forRoot(indexedConfig),
-    StoreModule.forRoot(PrimeiroAppStore),
+    StoreModule.forRoot(OrganizeseStore),
     StoreDevtoolsModule.instrument({ maxAge: 45 }),
     EffectsModule.forRoot([LoginEffect, AppEffect, RegistersEffect, DashboardEffect])
   ],

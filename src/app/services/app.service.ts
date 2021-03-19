@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { StatusCode } from 'aws-sdk/clients/apigateway';
-import { Observable } from 'rxjs';
-import { Constants } from './constants';
+import { HttpClient } from '@angular/common/http'
+import { Injectable } from '@angular/core'
+import { StatusCode } from 'aws-sdk/clients/apigateway'
+import { Observable } from 'rxjs'
+import { Constants } from './constants'
 
 @Injectable({
   providedIn: 'root'

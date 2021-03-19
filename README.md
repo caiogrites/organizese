@@ -139,3 +139,6 @@
 ###### 19/03/2021
 
 * [x] Mostrar mensagem ao clicar no buttão dashboard
+* [x] Publicação da primeira versão
+* [x] Compilação da primaira versão para linux
+* [x] Preparação para envio de payload na atualização do perfil
