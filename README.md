@@ -127,5 +127,15 @@
 
 ###### 17/03/2021
 
-* [] Update user
-* [] Form para update
+* [x] Update user
+* [x] Form para update
+
+###### 18/03/2021
+
+* [x] Deploy no github do frontend
+* [x] Configurando icone ao fazer build para desktop, linux e windows
+* [x] Correção do spinner loader
+
+###### 19/03/2021
+
+* [x] Mostrar mensagem ao clicar no buttão dashboard

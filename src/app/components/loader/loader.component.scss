@@ -9,14 +9,15 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.4);
   z-index: 9999;
   .load {
     width: inherit;
     height: inherit;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    // justify-content: space-between;
+    justify-content: center;
     flex-direction: column;
     max-width: 200px;
     max-height: 225px;

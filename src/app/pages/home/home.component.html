@@ -22,7 +22,7 @@
       <div class="middle">
         <h3 class="display">Acesse sua conta!</h3>
         <div class="container-buttons">
-          <button type="button" routerLink="/dashboard" color="primary" mat-raised-button>Dashboard</button>
+          <button type="button" (click)="goToDashboard()" color="primary" mat-raised-button>Dashboard</button>
           <button (click)="login()" type="button" mat-raised-button>Login</button>
         </div>
       </div>

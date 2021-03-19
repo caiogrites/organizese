@@ -1,4 +1,4 @@
-import { Component, DoCheck, KeyValueDiffers, OnInit } from '@angular/core'
+import { AfterViewInit, Component, DoCheck, KeyValueDiffers, OnInit } from '@angular/core'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { Store } from '@ngrx/store'
 import { Register } from 'src/app/models/models'
@@ -13,7 +13,7 @@ import { delay, map } from 'rxjs/operators'
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
-export class MainComponent extends DashboardComponent implements OnInit, DoCheck {
+export class MainComponent extends DashboardComponent implements OnInit, DoCheck, AfterViewInit {
   public cards: any[] = [
     {
       title: 'Consolidado',
@@ -59,8 +59,7 @@ export class MainComponent extends DashboardComponent implements OnInit, DoCheck
   ) {
     super()
     this.differ = this._differs.find({}).create()
-    this._store.dispatch(actionsDashboard.FETCH_EVOLUCAO())
-    this._store.dispatch(actionsDashboard.FETCH_EVOLUCAO_DESPESAS())
+
   }
 
   public ngDoCheck() {
@@ -71,7 +70,7 @@ export class MainComponent extends DashboardComponent implements OnInit, DoCheck
     }
   }
 
-  public ngOnInit(): void {
+  public ngAfterViewInit(): void {
     this._store.select(({ registers, dashboard }: any) => ({
       all: [...registers.all],
       consolidado: dashboard.consolidado,
@@ -118,5 +117,10 @@ export class MainComponent extends DashboardComponent implements OnInit, DoCheck
         this.isMainLoading = false
       }
     })
+  }
+
+  public ngOnInit(): void {
+    this._store.dispatch(actionsDashboard.FETCH_EVOLUCAO())
+    this._store.dispatch(actionsDashboard.FETCH_EVOLUCAO_DESPESAS())
   }
 }

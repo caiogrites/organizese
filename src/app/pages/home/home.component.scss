@@ -155,12 +155,16 @@
   .home .container-home {
     padding-left: 16px;
     padding-right: 16px;
-  } 
-
+  }
   .home .container-home .wrapper .middle h1 {
     font-size: 2.5em;
   }
   .home .container-home .wrapper .middle .container-buttons button {
     max-width: 180px;
+  }
+  .home .container-home .wrapper .middle .container-buttons {
+    max-width: 450px;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
