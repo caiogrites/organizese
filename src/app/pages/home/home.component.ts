@@ -12,18 +12,16 @@ import { LoginService } from "src/app/services/login.service";
 })
 export class HomeComponent implements OnInit {
   public logo: string = './assets/icon-default-white-512x512.svg'
+  public isLogged: boolean = false
 
   constructor(
     private _dialog: MatDialog,
     private _router: Router,
-    private _loginService: LoginService,
-    private _snackbar: MatSnackBar
   ) {
     this.logo = './assets/' + this.getLogo()
   }
 
-  public ngOnInit(): void {
-  }
+  public ngOnInit(): void { }
 
   public login(): void {
     this._dialog.open(DialogsComponent, { data: { type: 'login', data: {} }, panelClass: 'dialog-default' })
@@ -45,15 +43,4 @@ export class HomeComponent implements OnInit {
       return 'icon-default-transparent-512x512.svg'
     }
   }
-
-  public goToDashboard(): void {
-    this._loginService.isAuthenticated().subscribe(isLogged => {
-      if (isLogged) {
-        this._router.navigateByUrl('/dashboard')
-      } else {
-        this._snackbar.open('Você não fez seu login ainda!', 'ok', { duration: 5000 })
-      }
-    })
-  }
-
 }

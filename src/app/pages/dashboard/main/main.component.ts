@@ -70,7 +70,10 @@ export class MainComponent extends DashboardComponent implements OnInit, DoCheck
     }
   }
 
-  public ngAfterViewInit(): void {
+  public ngOnInit(): void {
+    this._store.dispatch(actionsDashboard.FETCH_EVOLUCAO())
+    this._store.dispatch(actionsDashboard.FETCH_EVOLUCAO_DESPESAS())
+
     this._store.select(({ registers, dashboard }: any) => ({
       all: [...registers.all],
       consolidado: dashboard.consolidado,
@@ -86,7 +89,6 @@ export class MainComponent extends DashboardComponent implements OnInit, DoCheck
       total_debit: dashboard.consolidado.total_debit,
       all_days_period: registers.all_days_period
     })).pipe(
-      delay(1000),
       map((state) => {
         this.total = state.total_geral
         this.totalDespesa = state.total_debit
@@ -113,14 +115,13 @@ export class MainComponent extends DashboardComponent implements OnInit, DoCheck
             break
         }
       })
-      if (this.EVOLUCAO_DATA && this.EVOLUCAO_DESPESAS_DATA) {
-        this.isMainLoading = false
-      }
+     
     })
   }
-
-  public ngOnInit(): void {
-    this._store.dispatch(actionsDashboard.FETCH_EVOLUCAO())
-    this._store.dispatch(actionsDashboard.FETCH_EVOLUCAO_DESPESAS())
+  
+  public ngAfterViewInit(): void {
+    if (this.EVOLUCAO_DATA && this.EVOLUCAO_DESPESAS_DATA) {
+      this.isMainLoading = false
+    }
   }
 }
