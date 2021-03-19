@@ -282,8 +282,14 @@ h2.welcome-subtitle {
   background: #c2bcbc;
   border-radius: 10px;
 }
+@media screen and (max-width: 557px) {
+  .dialog-default {
+    max-width: 280px !important;
+    max-height: 450px !important;
+  }
+}
 
-@media screen and (max-width: 769px) {
+@media screen and (min-width: 557.98px) and (max-width: 769px) {
   .dialog-default {
     max-width: 420px !important;
   }

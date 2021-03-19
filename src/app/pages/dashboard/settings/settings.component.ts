@@ -7,6 +7,8 @@ import { MatSnackBar } from '@angular/material/snack-bar'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { DashboardService } from 'src/app/services/dashboard.service'
 import { User } from '../../../models/models'
+import { version, author, description } from '../../../../../package.json'
+
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
@@ -24,6 +26,11 @@ export class SettingsComponent extends DashboardComponent implements OnInit, DoC
   public hide: boolean = false
   public isLoading: boolean = false
   public user: User
+  public package: any
+  public version: any
+  public author: any
+  public description: any
+
 
   constructor(
     protected _renderedFactory: RendererFactory2,
@@ -64,6 +71,9 @@ export class SettingsComponent extends DashboardComponent implements OnInit, DoC
     this.getColorTheme()
     this.getMode()
     this.renderer.addClass(document.body, this.colorTheme)
+    this.version = version
+    this.author = author
+    this.description = description
   }
 
   public updateColorTheme(theme: 'dark-mode' | 'light-mode'): void {

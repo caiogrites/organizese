@@ -31,7 +31,7 @@ module.exports = function createDefaultWindow() {
   win.setMenu(null)
 
   // uncomment this line to open devtools
-  win.webContents.openDevTools()
+  // win.webContents.openDevTools()
 
   // system tray - mini icon on system tray
   new Tray(`${__dirname}/../../dist/assets/icon-default-white-512x512.png`)

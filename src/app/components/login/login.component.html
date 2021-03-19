@@ -38,7 +38,7 @@
   </div>
 
   <div class="container-buttons">
-    <button [disabled]="!formLogin.valid || isLoading" type="submit" mat-raised-button>Login</button>
     <button (click)="close(dialog)" type="button" color="accent" mat-raised-button>{{isLoginText}}</button>
+    <button [disabled]="!formLogin.valid || isLoading" type="submit" mat-raised-button>Login</button>
   </div>
 </form>

@@ -59,6 +59,7 @@ export class ListRegistersComponent implements OnInit {
   }
 
   public details(_: Event, payload: any): void {
+    _.stopPropagation()
     this._dialog.open(DialogsComponent, { data: { type: 'details', data: payload }, panelClass: 'dialog-default' })
       .beforeClosed().subscribe((res: any) => {
         if (res && res.operation === 'edit') {

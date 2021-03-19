@@ -77,7 +77,7 @@
         </p>
 
         <p class="menu">
-          <button mat-icon-button [matMenuTriggerFor]="menu">
+          <button (click)="$event.stopPropagation()" type="button" mat-icon-button [matMenuTriggerFor]="menu">
             <mat-icon>more_vert</mat-icon>
           </button>
         </p>

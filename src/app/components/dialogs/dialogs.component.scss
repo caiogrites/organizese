@@ -85,5 +85,14 @@ $padding-size: 15px;
       }
     }
   }
-  
+}
+
+@media screen and (max-width: 557px) {
+  .dialog .dialog-container.detail .content-dialog .valor .cards-money-on,
+  .dialog .dialog-container.detail .content-dialog .valor .cards-money-off {
+    font-size: 40px;
+  }
+  .dialog .dialog-container.detail .container-footer .date span {
+    font-size: 0.64em;
+  }
 }

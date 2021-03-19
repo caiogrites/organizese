@@ -115,13 +115,14 @@ export class MainComponent extends DashboardComponent implements OnInit, DoCheck
             break
         }
       })
-     
     })
   }
-  
-  public ngAfterViewInit(): void {
-    if (this.EVOLUCAO_DATA && this.EVOLUCAO_DESPESAS_DATA) {
-      this.isMainLoading = false
-    }
+
+  public async ngAfterViewInit(): Promise<any> {
+    this.isMainLoading = await this.isLoaded()
+  }
+
+  public isLoaded(): Promise<boolean> {
+    return new Promise(resolve => setTimeout(() => resolve(false), 500))
   }
 }

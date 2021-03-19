@@ -61,6 +61,7 @@ export class DashboardComponent implements OnInit, DoCheck, AfterViewInit {
   public autocomplete$: Observable<string[]>
   public user: any
   public isLoadingDashboard: boolean = true
+  private timeDelay: number = 1500
 
   constructor(
     protected _ipcService?: IpcService,
@@ -124,9 +125,6 @@ export class DashboardComponent implements OnInit, DoCheck, AfterViewInit {
   }
 
   public ngAfterViewInit() {
-    if (!status && this.consolidado && this.user) {
-      this.isLoadingDashboard = false
-    }
   }
 
   private filterAutocomplete(value: string = ''): string[] {
@@ -134,26 +132,36 @@ export class DashboardComponent implements OnInit, DoCheck, AfterViewInit {
   }
 
   private async initialize() {
-    await this.fetchUser()
-    await this.fetchRegisters()
-    await this.initDashboard()
-    await this.fetchAutocomplete()
+    this.fetchUser().then(() => {
+      this.fetchRegisters().then(() => {
+        this.initDashboard().then(() => {
+          this.fetchAutocomplete().then(() => {
+            this.isLoadingDashboard = false
+          })
+        })
+      })
+    })
   }
 
   private async fetchUser(): Promise<any> {
-    this._store?.dispatch(actionsLogin.GET_USER())
+    return new Promise(resolve => setTimeout(() =>
+      resolve(this._store?.dispatch(actionsLogin.GET_USER())), this.timeDelay))
   }
 
   private async initDashboard(): Promise<any> {
-    this._store?.dispatch(actionsDashboard.INIT_DASHBOARD())
+    return new Promise(resolve => setTimeout(() =>
+      resolve(this._store?.dispatch(actionsDashboard.INIT_DASHBOARD())), this.timeDelay))
+
   }
 
   private async fetchRegisters(): Promise<any> {
-    this._store?.dispatch(actionsRegister.INIT({ payload: { days: 7 } }))
+    return new Promise(resolve => setTimeout(() =>
+      resolve(this._store?.dispatch(actionsRegister.INIT({ payload: { days: 7 } }))), this.timeDelay))
   }
 
   private async fetchAutocomplete(): Promise<any> {
-    this._store?.dispatch(actionsDashboard.FETCH_AUTOCOMPLETE())
+    return new Promise(resolve => setTimeout(() =>
+      resolve(this._store?.dispatch(actionsDashboard.FETCH_AUTOCOMPLETE())), this.timeDelay))
   }
 
   public onSubmit(): void {
