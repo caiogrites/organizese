@@ -1,5 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import * as actions from '../actions/dashboard.actions'
+import * as actionsApp from '../actions/app.actions'
 
 const INITIAL_STATES = {
   consolidado: {
@@ -26,6 +27,21 @@ const dashboardReducers = createReducer(
   on(actions.SET_DEV_MODE, (states, { payload }) => ({ ...states, mode: payload.mode })),
   on(actions.SET_EVOLUCAO_DESPESAS, (states, { payload }) => ({ ...states, evolucao_despesas: payload })),
   on(actions.SET_AUTOCOMPLETE, (states, { payload }) => ({ ...states, auto_complete: payload })),
+
+  on(actionsApp.RESET_ALL, (states) => ({
+    ...states,
+    consolidado: {
+      a_pagar: 0,
+      total_consolidado: 0,
+      total_credit: 0,
+      total_debit: 0,
+      a_receber: 0
+    },
+    evolucao: {},
+    evolucao_despesas: {},
+    auto_complete: [],
+    evolucao_detail: {}
+  }))
 )
 
 export function reducerDashboard(state: any, action: any) {

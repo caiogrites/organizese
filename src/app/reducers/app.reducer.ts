@@ -8,6 +8,7 @@ const INITIAL_STATES = {
 const appReducer = createReducer(
   INITIAL_STATES,
   on(actions.SET_ONLINE, (states, { payload }) => ({ ...states, online: payload })),
+  on(actions.RESET_ALL, (states) => ({ ...states, online: false })),
 )
 
 export function reducerApp(state: any, action: any) {

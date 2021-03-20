@@ -6,6 +6,7 @@ import * as actionsErrors from '../../actions/errors.actions'
 import * as actionsRegister from '../../actions/registers.actions'
 import * as actionsDashboard from '../../actions/dashboard.actions'
 import * as actionsLogin from '../../actions/login.actions'
+import * as actionsApp from '../../actions/app.actions'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { filter, map, startWith } from 'rxjs/operators'
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout'
@@ -136,7 +137,9 @@ export class DashboardComponent implements OnInit, DoCheck, AfterViewInit {
       this.fetchRegisters().then(() => {
         this.initDashboard().then(() => {
           this.fetchAutocomplete().then(() => {
-            this.isLoadingDashboard = false
+            if (this.consolidado && this.autocomplete && this.user) {
+              this.isLoadingDashboard = false
+            }
           })
         })
       })
@@ -252,6 +255,12 @@ export class DashboardComponent implements OnInit, DoCheck, AfterViewInit {
       }
     } else {
       return 'icon-deffault-transparent-512x512.svg'
+    }
+  }
+
+  public goTo(action: any): void {
+    if (action.name === 'Home') {
+      this._store?.dispatch(actionsApp.RESET_ALL())
     }
   }
 

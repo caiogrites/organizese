@@ -9,6 +9,7 @@ export class Constants {
       // this.host = 'http://127.0.0.1:5000/'
     } else {
       this.host = 'http://127.0.0.1:5000/'
+      // this.host = 'https://api-organizese.herokuapp.com/'
     }
   }
 

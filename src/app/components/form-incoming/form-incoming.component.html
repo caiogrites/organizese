@@ -36,8 +36,8 @@
 
 
   <div *ngIf="edit" class="container-button">
-    <button [disabled]="isDisabled" (click)="close(form.value)" mat-raised-button type="submit">Registrar</button>
     <button mat-raised-button (click)="close(false)" color="accent" type="button">Fechar</button>
+    <button [disabled]="isDisabled" (click)="close(form.value)" mat-raised-button type="submit">Registrar</button>
   </div>
 
   <button *ngIf="!edit" [disabled]="isDisabled" mat-raised-button type="submit">Registrar</button>

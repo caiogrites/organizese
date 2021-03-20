@@ -77,11 +77,8 @@ export class LoginService {
   }
 
   public logout(): Observable<any> {
-    localStorage.removeItem('user')
-    localStorage.removeItem('token')
-
-    sessionStorage.removeItem('user')
-    sessionStorage.removeItem('token')
+    sessionStorage.clear()
+    localStorage.clear()
     this.user$.next(null)
     this.loggedIn$.next(false)
 

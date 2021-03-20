@@ -1,6 +1,7 @@
-import { createReducer, on } from "@ngrx/store";
+import { createReducer, on } from "@ngrx/store"
 import * as actions from '../actions/registers.actions'
-import { Register } from "../models/models";
+import { Register } from "../models/models"
+import * as actionsApp from '../actions/app.actions'
 
 const categories: string[] = [
   'Banco',
@@ -56,6 +57,22 @@ const registersReducers = createReducer(
     return { ...states, all: updateAll(stateUpdated) }
   }),
   on(actions.SET_SEARCH, (states, { payload }) => ({ ...states, result_search: updateAll(payload) })),
+
+  on(actionsApp.RESET_ALL, (states) => ({
+    ...states,
+    all: updateAll([]),
+    tab: '',
+    visible: {},
+    consolidado: {},
+    msg: '',
+    total: 0,
+    total_despesas: 0,
+    categories,
+    a_pagar: 0,
+    a_receber: 0,
+    all_days_period: 1,
+    result_search: []
+  })),
 )
 
 function updateAll(all: any) {

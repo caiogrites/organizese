@@ -42,6 +42,7 @@ export class RegistersComponent extends DashboardComponent implements OnInit, Af
   public all_days_period: number = 0
   public days: number = 0;
   public user: User
+  public isLoadingRegisters: boolean = false
 
   public displayedColumns: string[] = [
     'Valor + crescente',
@@ -119,11 +120,15 @@ export class RegistersComponent extends DashboardComponent implements OnInit, Af
           let text = this.onlyComing == 'incoming' ? 'Somente entrada' : 'Somente saída'
           this.notification(text)
         }
+        if (item.key === 'ELEMENT_ORDER') {
+          this.isLoadingRegisters = false
+        }
       })
     }
   }
 
   public listeningEventForm(event: Register): void {
+    this.isLoadingRegisters = true
     const payload: Register = {
       category: event.category || 'Outros',
       created_at: event.created_at,
@@ -157,6 +162,7 @@ export class RegistersComponent extends DashboardComponent implements OnInit, Af
       payload['days'] = parseInt(event.value)
     }
     this._store.dispatch(actionsRegister.INIT({ payload }))
+    this.isLoadingRegisters = true
   }
 
   private makingInOutComing(value: string): void {

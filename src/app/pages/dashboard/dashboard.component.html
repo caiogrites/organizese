@@ -2,8 +2,8 @@
   <mat-drawer-container class="container">
     <mat-drawer #drawer mode="over" opened="false">
       <ul class="app-menu-list">
-        <li [ngClass]="{'link-active': isActive === item.link}" (click)="drawer.toggle()" *ngFor="let item of menuList"
-          [routerLink]="item.link">
+        <li (click)="goTo(item)" [ngClass]="{'link-active': isActive === item.link}" (click)="drawer.toggle()"
+          *ngFor="let item of menuList" [routerLink]="item.link">
           <a>
             <mat-icon>{{item.icon}}</mat-icon>
           </a>
@@ -20,7 +20,7 @@
     <mat-drawer-content>
       <div class="sidebar bg-mode">
         <ul class="app-menu-list">
-          <li [ngClass]="{'link-active': isActive === item.link}" *ngFor="let item of menuList"
+          <li (click)="goTo(item)" [ngClass]="{'link-active': isActive === item.link}" *ngFor="let item of menuList"
             [routerLink]="item.link">
             <a>
               <mat-icon>{{item.icon}}</mat-icon>
