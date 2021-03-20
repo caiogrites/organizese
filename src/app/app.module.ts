@@ -25,6 +25,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http'
 import { DashboardInterceptor } from './interceptor/dashboard.interceptor'
 import { NgxMaskModule } from 'ngx-mask'
 import { LoadInterceptor } from './interceptor/load.interceptor'
+import { ProfileEffect } from './effects/profile.effect'
 
 registerLocaleData(localePt, 'pt-BR')
 
@@ -53,7 +54,13 @@ const indexedConfig: DBConfig = {
     NgxIndexedDBModule.forRoot(indexedConfig),
     StoreModule.forRoot(OrganizeseStore),
     StoreDevtoolsModule.instrument({ maxAge: 45 }),
-    EffectsModule.forRoot([LoginEffect, AppEffect, RegistersEffect, DashboardEffect])
+    EffectsModule.forRoot([
+      ProfileEffect,
+      LoginEffect,
+      AppEffect,
+      RegistersEffect,
+      DashboardEffect
+    ])
   ],
   entryComponents: [
     DialogsComponent

@@ -60,8 +60,8 @@
     </div>
   </div>
 
-  <div *ngIf="type === 'login'" class="dialog-container login">
-    <mat-progress-bar *ngIf="showProgressbar" mode="indeterminate"></mat-progress-bar>
+  <div *ngIf="type === 'login'" class="dialog-container login" [ngStyle]="{'opacity': showProgressbar ? '0.3' : '1'}">
+    <mat-progress-bar class="progress-bar" *ngIf="showProgressbar" mode="indeterminate"></mat-progress-bar>
     <div class="header dialog-header-mode">
       <div class="title login">Login</div>
       <div class="max-window">

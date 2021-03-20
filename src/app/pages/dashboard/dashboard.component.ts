@@ -7,6 +7,7 @@ import * as actionsRegister from '../../actions/registers.actions'
 import * as actionsDashboard from '../../actions/dashboard.actions'
 import * as actionsLogin from '../../actions/login.actions'
 import * as actionsApp from '../../actions/app.actions'
+import * as actionsProfile from '../../actions/profile.actions'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { filter, map, startWith } from 'rxjs/operators'
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout'
@@ -16,6 +17,7 @@ import { Observable } from 'rxjs'
 import { FormControl } from '@angular/forms'
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete'
 import { LoadService } from 'src/app/services/load.service'
+import { UtilsService } from 'src/app/utils/utis.service'
 
 @Component({
   selector: 'app-dashboard',
@@ -75,6 +77,7 @@ export class DashboardComponent implements OnInit, DoCheck, AfterViewInit {
     protected _differs?: KeyValueDiffers,
     protected _dialog?: MatDialog,
     protected _loadService?: LoadService,
+    protected _utilsService?: UtilsService
   ) {
     this.logo = './assets/' + this.getTheme()
     this._router?.events.subscribe((u: any) => this.isActive = u.url)
@@ -92,19 +95,22 @@ export class DashboardComponent implements OnInit, DoCheck, AfterViewInit {
   public ngOnInit(): void {
     this.initialize()
     this._scrollService?.getScrollAsStream().subscribe(per => this.buttonToTop = (per >= 30))
-    this._store?.select(({ http_error, registers, dashboard, login }: any) => ({
+    this._store?.select(({ http_error, registers, dashboard, profile }: any) => ({
       http_error,
       consolidado: dashboard.consolidado,
       autocomplete: dashboard.auto_complete,
-      user: login.user
-    })).subscribe(state => {
+      profile: profile.user
+    })).subscribe(async state => {
       this.consolidado = state.consolidado.total_consolidado
-      this.autocomplete = state.autocomplete
-      this.user = state.user
+      this.autocomplete = await this.isEmpty(state.autocomplete)
+      this.user = await this.isEmpty(state.profile)
+
       if (state.http_error.errors.length > 0) {
         this.handleError(state.http_error.errors[0])
       }
+      this.isLoadingDashboard = false
     })
+
     this._as?.pipe(filter(a => a.type === actionsErrors.actionsTypes.SET_SUCCESS))
       .subscribe(({ payload }: any) => {
         const name: string = this.fetchNames(payload)
@@ -132,14 +138,19 @@ export class DashboardComponent implements OnInit, DoCheck, AfterViewInit {
     return this.autocomplete.filter(option => option.toLowerCase().includes(value.toLowerCase())).sort()
   }
 
+  public isEmpty(payload: any): Promise<any> {
+    return new Promise(resolve => {
+      if (!this._utilsService?.isEmpty(payload)) {
+        resolve(payload)
+      }
+    })
+  }
+
   private async initialize() {
     this.fetchUser().then(() => {
       this.fetchRegisters().then(() => {
         this.initDashboard().then(() => {
           this.fetchAutocomplete().then(() => {
-            if (this.consolidado && this.autocomplete && this.user) {
-              this.isLoadingDashboard = false
-            }
           })
         })
       })
@@ -148,7 +159,7 @@ export class DashboardComponent implements OnInit, DoCheck, AfterViewInit {
 
   private async fetchUser(): Promise<any> {
     return new Promise(resolve => setTimeout(() =>
-      resolve(this._store?.dispatch(actionsLogin.GET_USER())), this.timeDelay))
+      resolve(this._store?.dispatch(actionsProfile.GET_PROFILE())), this.timeDelay))
   }
 
   private async initDashboard(): Promise<any> {

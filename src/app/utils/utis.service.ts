@@ -15,4 +15,8 @@ export class UtilsService {
       return v.toString(16)
     })
   }
+
+  public isEmpty(object: object): boolean {
+    return Object.keys(object).length === 0
+  }
 }

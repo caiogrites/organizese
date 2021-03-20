@@ -11,14 +11,14 @@ import { LoginService } from "src/app/services/login.service";
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  public logo: string = './assets/icon-default-white-512x512.svg'
+  public logo: string = '/assets/icon-default-white-512x512.svg'
   public isLogged: boolean = false
 
   constructor(
     private _dialog: MatDialog,
     private _router: Router,
   ) {
-    this.logo = './assets/' + this.getLogo()
+    this.logo = '/assets/' + this.getLogo()
   }
 
   public ngOnInit(): void { }

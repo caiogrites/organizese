@@ -17,4 +17,8 @@ export class ProfileService {
   public profileUpdate(payload: any): Observable<any> {
     return this.http.post<any>(this.constants.get('profile_update'), payload)
   }
+
+  public profileGet(): Observable<any> {
+    return this.http.get<any>(this.constants.get('profile_get'))
+  }
 }

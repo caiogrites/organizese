@@ -36,7 +36,8 @@ export class Constants {
     login_verified: 'login/login_verified',
     email_to_reset: 'login/email_to_reset',
 
-    profile_update:'profile/update'
+    profile_update:'profile/update',
+    profile_get: 'profile/get_profile'
   }
 
   public get(key: string, host?: string): string {

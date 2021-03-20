@@ -8,6 +8,8 @@ import { DashboardComponent } from '../dashboard.component'
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout'
 import { MatSelectChange } from '@angular/material/select'
 import { AngularCreatePdfService } from 'angular-create-pdf'
+import { UtilsService } from 'src/app/utils/utis.service'
+
 
 @Component({
   selector: 'app-registers',
@@ -62,15 +64,16 @@ export class RegistersComponent extends DashboardComponent implements OnInit, Af
     protected _breakpointObserver: BreakpointObserver,
     protected _differs: KeyValueDiffers,
     protected _createPdf: AngularCreatePdfService,
+    protected _utilsService: UtilsService
   ) {
     super()
     _breakpointObserver.observe([Breakpoints.XSmall]).subscribe(result => this.isMobile = !!result.matches)
     this.differ = this._differs.find({}).create()
-    this.logo = './assets/' + this.getTheme()
+    this.logo = '/assets/' + this.getLogo()
   }
 
   public ngOnInit(): void {
-    this._store.select(({ registers, dashboard, login }: any) => ({
+    this._store.select(({ registers, dashboard, profile }: any) => ({
       all: [...registers.all],
       tab: registers.tab,
       total: registers.total,
@@ -81,16 +84,15 @@ export class RegistersComponent extends DashboardComponent implements OnInit, Af
       total_credit: dashboard.consolidado.total_credit,
       total_debit: dashboard.consolidado.total_debit,
       all_days_period: registers.all_days_period,
-      user: login.user
-    })).subscribe(state => {
-      this.user = state.user
+      user: profile.user
+    })).subscribe(async state => {
       this.tab = state.tab
       this.total = state.total
       this.totalDespesa = state.despesas
       this.totalReceita = state.receita
       this.aPagar = state.a_pagar
       this.aReceber = state.a_receber
-      this.ELEMENT_ORDER = state.all
+
       this.totalPercent = ((state.total_debit / state.total_credit) * 100) >= 100 ? 100 : (state.total_debit / state.total_credit) * 100
       this.totalGeral = (this.totalReceita - this.totalDespesa)
       this.all_days_period = state.all_days_period
@@ -103,7 +105,32 @@ export class RegistersComponent extends DashboardComponent implements OnInit, Af
         this.isNegative = false
       }
 
+      this.user = await this.isEmpty(state.user)
+      this.ELEMENT_ORDER = await this.isEmpty(state.all)
       this.orderby ? this.makingOrdering(this.orderby) : this.ELEMENT_DATA = this.classificar(state.all)
+      this.isLoadingRegisters = false
+
+      // this.user = state.user
+      // this.tab = state.tab
+      // this.total = state.total
+      // this.totalDespesa = state.despesas
+      // this.totalReceita = state.receita
+      // this.aPagar = state.a_pagar
+      // this.aReceber = state.a_receber
+      // this.ELEMENT_ORDER = state.all
+
+      // this.totalPercent = ((state.total_debit / state.total_credit) * 100) >= 100 ? 100 : (state.total_debit / state.total_credit) * 100
+      // this.totalGeral = (this.totalReceita - this.totalDespesa)
+      // this.all_days_period = state.all_days_period
+
+      // if (this.filterByDays !== 'todos') this.days = parseInt(this.filterByDays)
+      // if (this.totalGeral < 0) {
+      //   this.isNegative = true
+      //   this.totalGeral = Math.abs(this.totalGeral)
+      // } else {
+      //   this.isNegative = false
+      // }
+      // this.orderby ? this.makingOrdering(this.orderby) : this.ELEMENT_DATA = this.classificar(state.all)
     })
   }
 
@@ -125,6 +152,14 @@ export class RegistersComponent extends DashboardComponent implements OnInit, Af
         }
       })
     }
+  }
+
+  public isEmpty(user: any): Promise<any> {
+    return new Promise(resolve => {
+      if (!this._utilsService.isEmpty(user)) {
+        resolve(user)
+      }
+    })
   }
 
   public listeningEventForm(event: Register): void {
@@ -166,17 +201,19 @@ export class RegistersComponent extends DashboardComponent implements OnInit, Af
   }
 
   private makingInOutComing(value: string): void {
-    this._store.select(({ registers }: any) => [...registers.all]).subscribe(registers => {
-      if (value === 'all') {
-        this.ELEMENT_DATA = this.classificar(registers)
-      } else if (value === 'pending') {
-        this.ELEMENT_DATA = this.classificar(registers.filter(v =>
-          (v.status === 'pendente a pagar' || v.status === 'pendente a receber')))
-      } else {
-        this.ELEMENT_DATA = this.classificar(registers.filter(v => v.type === value))
-        this.onlyComing = value
-      }
-    })
+    this._store.select(({ registers }: any) => ({ all: [...registers.all] }))
+      .subscribe(async state => {
+        const registers = await this.isEmpty(state.all)
+        if (value === 'all') {
+          this.ELEMENT_DATA = this.classificar(registers)
+        } else if (value === 'pending') {
+          this.ELEMENT_DATA = this.classificar(registers.filter((v: any) =>
+            (v.status === 'pendente a pagar' || v.status === 'pendente a receber')))
+        } else {
+          this.ELEMENT_DATA = this.classificar(registers.filter((v: any) => v.type === value))
+          this.onlyComing = value
+        }
+      })
   }
 
   private makingOrdering(value: string, registers?: Register[]): void {
@@ -224,5 +261,17 @@ export class RegistersComponent extends DashboardComponent implements OnInit, Af
   }
   public imprimir() {
     window.print()
+  }
+  
+  public getLogo(): string {
+    if (localStorage.getItem('user-theme')) {
+      if (localStorage.getItem('user-theme') === 'dark-mode') {
+        return 'icon-default-dark-512x512.svg'
+      } else {
+        return 'icon-default-stroke-512x512.svg'
+      }
+    } else {
+      return 'icon-default-transparent-512x512.svg'
+    }
   }
 }

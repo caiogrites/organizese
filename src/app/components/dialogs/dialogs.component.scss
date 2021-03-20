@@ -3,6 +3,9 @@
 $padding-size: 15px;
 .dialog {
   height: 100%;
+  .dialog-container.login {
+    position: relative;
+  }
   .dialog-container.detail,
   .dialog-container.login {
     width: inherit;
@@ -84,6 +87,14 @@ $padding-size: 15px;
         font-size: 12px;
       }
     }
+  }
+  .dialog-container.login .max-window button:focus,
+  .dialog-container.login .max-window button:active {
+    background: transparent;
+  }
+  .dialog-container.login .progress-bar {
+    position: absolute;
+    top: 0;
   }
 }
 

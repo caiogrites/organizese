@@ -10,13 +10,13 @@
           <div class="form-inline">
             <mat-form-field class="form" floatLabel="always" appearance="outline">
               <mat-label>Nome</mat-label>
-              <input type="text" formControlName="name" matInput placeholder="Nome">
+              <input [readonly]="isLoading" type="text" formControlName="name" matInput placeholder="Nome">
             </mat-form-field>
           </div>
           <div class="form-inline">
             <mat-form-field class="form" floatLabel="always" appearance="outline">
               <mat-label>E-mail</mat-label>
-              <input type="email" formControlName="email" matInput placeholder="E-mail" required>
+              <input [readonly]="isLoading" type="email" formControlName="email" matInput placeholder="E-mail" required>
               <mat-error *ngIf="formProfile.get('email')?.hasError('required')">
                 Digite o email
               </mat-error>
@@ -25,8 +25,8 @@
           <div class="form-inline">
             <mat-form-field class="form" floatLabel="always" appearance="outline">
               <mat-label>CPF/CNPJ</mat-label>
-              <input mask="000.000.000-00||00.000.000/0000-00" type="text" formControlName="cpf" matInput
-                placeholder="CPF ou CNPJ" required>
+              <input [readonly]="isLoading" mask="000.000.000-00||00.000.000/0000-00" type="text" formControlName="cpf"
+                matInput placeholder="CPF ou CNPJ" required>
               <mat-error *ngIf="formProfile.get('cpf')?.hasError('required')">
                 Digite o cpf ou cnpj
               </mat-error>
@@ -34,9 +34,9 @@
           </div>
           <div class="form-inline">
             <mat-form-field class="form" floatLabel="always" appearance="outline">
-              <mat-label>Telefone</mat-label>
-              <input mask="(00) 0000-0000||(00) 0 0000-0000" type="text" formControlName="tel" matInput
-                placeholder="Telefone" required>
+              <mat-label>Celular</mat-label>
+              <input [readonly]="isLoading" mask="(00) 0 0000-0000" type="text" formControlName="tel"
+                matInput placeholder="Celular" required>
               <mat-error *ngIf="formProfile.get('tel')?.hasError('required')">
                 Digite o telefone
               </mat-error>
@@ -60,7 +60,7 @@
           <div class="form-inline">
             <mat-form-field class="form" floatLabel="always" appearance="outline">
               <mat-label>Senha antiga</mat-label>
-              <input [type]="hide ? 'text' : 'password'" formControlName="old_password" matInput
+              <input [readonly]="isLoading" [type]="hide ? 'text' : 'password'" formControlName="old_password" matInput
                 placeholder="Senha antiga">
               <mat-icon style="cursor:pointer" matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
                 [attr.aria-pressed]="hide">
@@ -74,7 +74,7 @@
           <div class="form-inline">
             <mat-form-field class="form" floatLabel="always" appearance="outline">
               <mat-label>Nova senha</mat-label>
-              <input [type]="hide ? 'text' : 'password'" formControlName="new_password" matInput
+              <input [readonly]="isLoading" [type]="hide ? 'text' : 'password'" formControlName="new_password" matInput
                 placeholder="Nova senha" required>
               <mat-icon style="cursor:pointer" matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
                 [attr.aria-pressed]="hide">
@@ -88,8 +88,8 @@
           <div class="form-inline">
             <mat-form-field class="form" floatLabel="always" appearance="outline">
               <mat-label>Confirmar senha</mat-label>
-              <input [type]="hide ? 'text' : 'password'" formControlName="confirm_password" matInput
-                placeholder="Confirmar senha" required>
+              <input [readonly]="isLoading" [type]="hide ? 'text' : 'password'" formControlName="confirm_password"
+                matInput placeholder="Confirmar senha" required>
               <mat-icon style="cursor:pointer" matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
                 [attr.aria-pressed]="hide">
                 {{ hide ? 'visibility' : 'visibility_off' }}

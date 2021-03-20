@@ -1,13 +1,14 @@
-import { Component, DoCheck, OnInit, Renderer2, RendererFactory2 } from '@angular/core'
+import { Component, DoCheck, KeyValueDiffers, OnInit, Renderer2, RendererFactory2 } from '@angular/core'
 import { MatSlideToggleChange } from '@angular/material/slide-toggle'
 import { Store } from '@ngrx/store'
 import { DashboardComponent } from '../dashboard.component'
 import * as actionsDashboard from '../../../actions/dashboard.actions'
+import * as actionsProfile from '../../../actions/profile.actions'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { DashboardService } from 'src/app/services/dashboard.service'
-import { User } from '../../../models/models'
 import { version, author, description } from '../../../../../package.json'
+import { UtilsService } from 'src/app/utils/utis.service'
 
 @Component({
   selector: 'app-settings',
@@ -25,12 +26,13 @@ export class SettingsComponent extends DashboardComponent implements OnInit, DoC
   public isPasswordSame: boolean = false
   public hide: boolean = false
   public isLoading: boolean = false
-  public user: User
+  public user: any = {}
   public package: any
   public version: any
   public author: any
   public description: any
-
+  public isReadOnly: boolean = false
+  public differ: any
 
   constructor(
     protected _renderedFactory: RendererFactory2,
@@ -38,24 +40,39 @@ export class SettingsComponent extends DashboardComponent implements OnInit, DoC
     protected _snackbar: MatSnackBar,
     protected _fb: FormBuilder,
     protected _dashboardService: DashboardService,
+    protected _utilsService: UtilsService,
+    protected _differs: KeyValueDiffers,
   ) {
     super()
+    this.differ = this._differs?.find({}).create()
     this.renderer = this._renderedFactory.createRenderer(null, null)
-    this.init()
     this.isDark = this.isDarkMode()
     this.isDev = this.isDarkMode()
   }
 
   public ngOnInit(): void {
-    this._store.select(({ login }: any) => ({ user: login.user })).subscribe(state => {
-      this.user = state.user
-    })
+    this.init()
+    this._store.select(({ profile }: any) => ({ user: profile.user }))
+      .subscribe(async state => {
+        this.user = await this.isEmpty(state.user)
+        this.formProfile.patchValue({
+          name: this.user.name,
+          email: this.user.email,
+          cpf: this.user.cpf,
+          tel: this.user.tel
+        })
+        this.isLoading = false
+      })
+
+    // this._store.select(({ login }: any) => ({ user: login.user })).pipe(
+    //   mergeMap((state) => from(this.isEmpty(state.user)))
+    // ).subscribe(user => console.log(user))
 
     this.formProfile = this._fb.group({
-      name: [this.user.name],
-      email: [this.user.email, [Validators.required, Validators.email]],
-      cpf: [this.user.cpf, Validators.required],
-      tel: [this.user.phone, Validators.required]
+      name: [''],
+      email: ['', [Validators.required, Validators.email]],
+      cpf: ['', Validators.required],
+      tel: ['', Validators.required]
     })
 
     this.formAccount = this._fb.group({
@@ -65,7 +82,24 @@ export class SettingsComponent extends DashboardComponent implements OnInit, DoC
     }, { validator: this.checkPassword('new_password', 'confirm_password') })
   }
 
-  public ngDoCheck() { }
+  public isEmpty(user: any): Promise<any> {
+    return new Promise(resolve => {
+      if (!this._utilsService.isEmpty(user)) {
+        resolve(user)
+      }
+    })
+  }
+
+  public ngDoCheck() {
+    const change = this.differ.diff(this)
+    if (change) {
+      change.forEachChangedItem((item: any) => {
+        if (item.key === 'user') {
+          this._snackbar.open('Informações atualzadas.', 'ok', { duration: 3000 })
+        }
+      })
+    }
+  }
 
   public init(): void {
     this.getColorTheme()
@@ -129,7 +163,8 @@ export class SettingsComponent extends DashboardComponent implements OnInit, DoC
   }
 
   public onProfileSubmit(): void {
-    console.log(this.formProfile.value)
+    this.isLoading = true
+    this._store.dispatch(actionsProfile.LISTENING_PROFILE({ payload: this.formProfile.value }))
   }
 
   public onAccountSubmit(): void {
