@@ -2,7 +2,7 @@
   <mat-drawer-container class="container">
     <mat-drawer #drawer mode="over" opened="false">
       <ul class="app-menu-list">
-        <li (click)="goTo(item)" [ngClass]="{'link-active': isActive === item.link}" (click)="drawer.toggle()"
+        <li [title]="item.name" (click)="goTo(item)" [ngClass]="{'link-active': isActive === item.link}" (click)="drawer.toggle()"
           *ngFor="let item of menuList" [routerLink]="item.link">
           <a>
             <mat-icon>{{item.icon}}</mat-icon>
@@ -20,7 +20,7 @@
     <mat-drawer-content>
       <div class="sidebar bg-mode">
         <ul class="app-menu-list">
-          <li (click)="goTo(item)" [ngClass]="{'link-active': isActive === item.link}" *ngFor="let item of menuList"
+          <li [title]="item.name" (click)="goTo(item)" [ngClass]="{'link-active': isActive === item.link}" *ngFor="let item of menuList"
             [routerLink]="item.link">
             <a>
               <mat-icon>{{item.icon}}</mat-icon>
@@ -37,7 +37,7 @@
       <div class="content-pages">
         <mat-toolbar>
           <mat-toolbar-row class="app-custom-toolbar-row">
-            <button mat-icon-button (click)="drawer.open()">
+            <button title="sidebar" mat-icon-button (click)="drawer.open()">
               <mat-icon>menu</mat-icon>
             </button>
 
@@ -57,7 +57,7 @@
               </form>
             </div>
 
-            <div class="prev-consolidado">
+            <div title="Consolidado" class="prev-consolidado">
               <span>Consolidado</span>
               <span [ngClass]="returnClass()">R$ {{ formatarValor(consolidado || 0) }}</span>
             </div>

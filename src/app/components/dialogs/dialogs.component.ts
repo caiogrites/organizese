@@ -30,6 +30,9 @@ export class DialogsComponent implements OnInit {
       case 'login':
         this.type = this.DIALOG_DATA.type
         break
+      case 'download':
+        this.type = this.DIALOG_DATA.type
+        break
     }
   }
 

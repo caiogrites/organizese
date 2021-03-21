@@ -1,6 +1,5 @@
-<section #contentDialog class="dialog">
-  <div *ngIf="type === 'details'" class="dialog-container detail">
-
+<div #contentDialog class="dialog" [ngSwitch]="type">
+  <div *ngSwitchCase="'details'" class="dialog-container detail">
     <div class="header dialog-header-mode">
       <div class="title">{{detail.description}}</div>
       <div class="max-window">
@@ -59,8 +58,10 @@
       </p>
     </div>
   </div>
-
-  <div *ngIf="type === 'login'" class="dialog-container login" [ngStyle]="{'opacity': showProgressbar ? '0.3' : '1'}">
+  <div *ngSwitchCase="'download'" class="dialog-container download">
+    <p>downloads</p>
+  </div>
+  <div *ngSwitchCase="'login'" class="dialog-container login" [ngStyle]="{'opacity': showProgressbar ? '0.3' : '1'}">
     <mat-progress-bar class="progress-bar" *ngIf="showProgressbar" mode="indeterminate"></mat-progress-bar>
     <div class="header dialog-header-mode">
       <div class="title login">Login</div>
@@ -72,4 +73,4 @@
     </div>
     <app-login dialog="dialog" (trigger)="onTrigger($event)" style="height: inherit;"></app-login>
   </div>
-</section>
+</div>

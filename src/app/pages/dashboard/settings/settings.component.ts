@@ -46,8 +46,6 @@ export class SettingsComponent extends DashboardComponent implements OnInit, DoC
     super()
     this.differ = this._differs?.find({}).create()
     this.renderer = this._renderedFactory.createRenderer(null, null)
-    this.isDark = this.isDarkMode()
-    this.isDev = this.isDarkMode()
   }
 
   public ngOnInit(): void {
@@ -103,8 +101,8 @@ export class SettingsComponent extends DashboardComponent implements OnInit, DoC
 
   public init(): void {
     this.getColorTheme()
-    this.getMode()
     this.renderer.addClass(document.body, this.colorTheme)
+    this.isDark = this.isDarkMode()
     this.version = version
     this.author = author
     this.description = description
@@ -128,23 +126,8 @@ export class SettingsComponent extends DashboardComponent implements OnInit, DoC
       : this.colorTheme = 'light-mode'
   }
 
-  private getMode(): void {
-    localStorage.getItem('dev-mode') ? this.devMode = localStorage.getItem('dev-mode') || '' : this.devMode = 'dev-mode'
-  }
-
   public isDarkMode(): boolean {
     return this.colorTheme === 'dark-mode'
-  }
-
-  public isDevMode(): boolean {
-    return this.devMode === 'dev-mode'
-  }
-
-  public updateMode(mode: 'dev-mode' | 'prod-mode'): void {
-    this.defineMode(mode)
-    const previousMode = (mode === 'dev-mode' ? 'dev-mode' : 'prod-mode')
-    localStorage.removeItem(previousMode)
-    localStorage.setItem('mode', mode)
   }
 
   public defineMode(mode: string): void {
@@ -155,11 +138,6 @@ export class SettingsComponent extends DashboardComponent implements OnInit, DoC
   public toggleDarkMode(event: MatSlideToggleChange): void {
     this.updateColorTheme(event.checked ? 'dark-mode' : 'light-mode')
     this._store.dispatch(actionsDashboard.DARK_MODE({ payload: event.checked ? 'dark-mode' : 'light-mode' }))
-  }
-
-  public activeDevMode(event: MatSlideToggleChange): void {
-    this.updateMode(event.checked ? 'dev-mode' : 'prod-mode')
-    this.notification(`Dev mode está: ${event.checked ? 'ativado' : 'desativado'}`)
   }
 
   public onProfileSubmit(): void {

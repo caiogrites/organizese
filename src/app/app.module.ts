@@ -25,7 +25,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http'
 import { DashboardInterceptor } from './interceptor/dashboard.interceptor'
 import { NgxMaskModule } from 'ngx-mask'
 import { LoadInterceptor } from './interceptor/load.interceptor'
-import { ProfileEffect } from './effects/profile.effect'
+import { ProfileEffect } from './effects/profile.effect';
+import { DownloadsComponent } from './components/downloads/downloads.component'
 
 registerLocaleData(localePt, 'pt-BR')
 
@@ -42,6 +43,7 @@ const indexedConfig: DBConfig = {
   declarations: [
     AppComponent,
     HomeComponent,
+    DownloadsComponent,
   ],
   imports: [
     BrowserModule,
