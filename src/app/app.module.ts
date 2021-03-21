@@ -43,7 +43,6 @@ const indexedConfig: DBConfig = {
   declarations: [
     AppComponent,
     HomeComponent,
-    DownloadsComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,7 +64,7 @@ const indexedConfig: DBConfig = {
     ])
   ],
   entryComponents: [
-    DialogsComponent
+    // DialogsComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: DashboardInterceptor, multi: true },

@@ -26,6 +26,8 @@ import { PanelControlComponent } from '../../components/panel-control/panel-cont
 import { MaterialModule } from "src/app/material.module"
 import { NgxMaskModule } from 'ngx-mask'
 import { LoaderComponent } from "src/app/components/loader/loader.component"
+import { DownloadsComponent } from "src/app/components/downloads/downloads.component"
+import { LoginComponent } from "src/app/components/login/login.component"
 
 const routes: Routes = [
   {

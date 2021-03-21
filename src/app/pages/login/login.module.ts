@@ -10,6 +10,7 @@ import { LoginService } from 'src/app/services/login.service'
 import { ResetPasswordComponent } from './reset-password/reset-password.component'
 import { VerifyComponent } from './verify/verify.component'
 import { NewPasswordComponent } from './new-password/new-password.component'
+import { DownloadsComponent } from 'src/app/components/downloads/downloads.component'
 
 const routes: Routes = [
   { path: '', component: SignInComponent },
@@ -27,7 +28,8 @@ const routes: Routes = [
     SignUpComponent,
     ResetPasswordComponent,
     VerifyComponent,
-    NewPasswordComponent
+    NewPasswordComponent,
+    DownloadsComponent
   ],
   imports: [
     CommonModule,

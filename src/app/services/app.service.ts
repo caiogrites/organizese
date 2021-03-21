@@ -32,4 +32,8 @@ export class AppService {
     const content = { 'Content-Type': 'image/svg+xml' }
     return this.http.get<any>(`${this.constants.get('file_images')}${this.convertJsonToUrl(params)}`, { headers: content })
   }
+
+  public downloadList(): Observable<any> {
+    return this.http.get<any>(this.constants.get('file_download_list'))
+  }
 }

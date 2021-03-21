@@ -14,6 +14,7 @@ export class DialogsComponent implements OnInit {
   public type: string = ''
   public detail: Register
   public showProgressbar: boolean = false
+  public downloadList: any
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public DIALOG_DATA: DIALOG_DATA,
@@ -32,6 +33,7 @@ export class DialogsComponent implements OnInit {
         break
       case 'download':
         this.type = this.DIALOG_DATA.type
+        this.downloadList = this.DIALOG_DATA.data
         break
     }
   }

@@ -142,3 +142,10 @@
 * [x] Publicação da primeira versão
 * [x] Compilação da primaira versão para linux
 * [x] Preparação para envio de payload na atualização do perfil
+
+###### 21/03/2021
+
+* [] Corrigir calendario para portugues
+* [] Criar lista de release para download
+* [] Implementar método de download da release
+* [] Filtrar somente os 5 últimos

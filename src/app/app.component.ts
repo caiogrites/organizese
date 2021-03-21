@@ -34,7 +34,7 @@ export class AppComponent implements AfterViewInit {
     this.initTheme()
     this.isDark = this.isDarkMode()
     this._store.dispatch(actionsDashboard.DARK_MODE({ payload: this.colorTheme }))
-
+    this._store.dispatch(actionsApp.ONLINE())
     this._store.select(({ http_error, app }: any) => ({ errors: http_error.errors, online: app.online }))
       .subscribe(state => {
         if (state.errors.length > 0) {

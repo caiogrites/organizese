@@ -38,7 +38,8 @@ export class Constants {
 
     profile_update:'profile/update',
     profile_get: 'profile/get_profile',
-    file_images: 'files/images?name='
+    file_images: 'files/images?name=',
+    file_download_list: 'files/download_list'
   }
 
   public get(key: string, host?: string): string {
