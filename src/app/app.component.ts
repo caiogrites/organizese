@@ -5,6 +5,7 @@ import * as actionsApp from './actions/app.actions'
 import * as actionsErrors from './actions/errors.actions'
 import { LoadService } from './services/load.service'
 import { IpcService } from './services/ipc.service'
+import { Constants } from './services/constants'
 
 @Component({
   selector: 'app-root',
@@ -25,10 +26,10 @@ export class AppComponent implements AfterViewInit {
     private _rendereFactory: RendererFactory2,
     private _store: Store,
     private _loadService: LoadService,
-    private _ipcService: IpcService
+    private _ipcService: IpcService,
+    private _constants: Constants
   ) {
-    this.logo = './assets/' + this.getLogo()
-    this._store.dispatch(actionsApp.ONLINE())
+    this.logo = this._constants.get('file_images') + this.getLogo()
     this.renderer = this._rendereFactory.createRenderer(null, null)
     this.initTheme()
     this.isDark = this.isDarkMode()
@@ -72,12 +73,12 @@ export class AppComponent implements AfterViewInit {
   public getLogo(): string {
     if (localStorage.getItem('user-theme')) {
       if (localStorage.getItem('user-theme') === 'dark-mode') {
-        return 'icon-default-dark-512x512.svg'
+        return 'icon-default-dark-512x512'
       } else {
-        return 'icon-default-stroke-512x512.svg'
+        return 'icon-default-stroke-512x512'
       }
     } else {
-      return 'icon-deffault-transparent-512x512.svg'
+      return 'icon-deffault-transparent-512x512'
     }
   }
 }

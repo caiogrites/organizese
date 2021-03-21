@@ -37,7 +37,8 @@ export class Constants {
     email_to_reset: 'login/email_to_reset',
 
     profile_update:'profile/update',
-    profile_get: 'profile/get_profile'
+    profile_get: 'profile/get_profile',
+    file_images: 'files/images?name='
   }
 
   public get(key: string, host?: string): string {

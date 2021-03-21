@@ -16,6 +16,7 @@ const windowSettings = {
 module.exports = function createDefaultWindow() {
   var win = new BrowserWindow(windowSettings)
   win.loadURL(`file://${__dirname}/../../dist/index.html`)
+
   // win.loadURL("http://localhost:4200")
   // const reload = () => remote.getCurrentWindow().reload()
 

@@ -9,6 +9,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout'
 import { MatSelectChange } from '@angular/material/select'
 import { AngularCreatePdfService } from 'angular-create-pdf'
 import { UtilsService } from 'src/app/utils/utis.service'
+import { Constants } from 'src/app/services/constants'
 
 
 @Component({
@@ -64,12 +65,13 @@ export class RegistersComponent extends DashboardComponent implements OnInit, Af
     protected _breakpointObserver: BreakpointObserver,
     protected _differs: KeyValueDiffers,
     protected _createPdf: AngularCreatePdfService,
-    protected _utilsService: UtilsService
+    protected _utilsService: UtilsService,
+    protected _constants: Constants
   ) {
     super()
     _breakpointObserver.observe([Breakpoints.XSmall]).subscribe(result => this.isMobile = !!result.matches)
     this.differ = this._differs.find({}).create()
-    this.logo = '/assets/' + this.getLogo()
+    this.logo = this._constants.get('file_images') + this.getLogo()
   }
 
   public ngOnInit(): void {
@@ -266,12 +268,12 @@ export class RegistersComponent extends DashboardComponent implements OnInit, Af
   public getLogo(): string {
     if (localStorage.getItem('user-theme')) {
       if (localStorage.getItem('user-theme') === 'dark-mode') {
-        return 'icon-default-dark-512x512.svg'
+        return 'icon-default-dark-512x512'
       } else {
-        return 'icon-default-stroke-512x512.svg'
+        return 'icon-default-stroke-512x512'
       }
     } else {
-      return 'icon-default-transparent-512x512.svg'
+      return 'icon-default-transparent-512x512'
     }
   }
 }
