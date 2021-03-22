@@ -7,6 +7,9 @@ const INITIAL_STATES = {
     total_credit: 0,
     total_debit: 0,
     total_consolidado: 0,
+    percent_consolidado: 0,
+    percent_debit: 0,
+    percent_credit:0,
     a_pagar: 0,
     a_receber: 0
   },
@@ -35,7 +38,10 @@ const dashboardReducers = createReducer(
       total_consolidado: 0,
       total_credit: 0,
       total_debit: 0,
-      a_receber: 0
+      a_receber: 0,
+      percent_consolidado: 0,
+      percent_debit: 0,
+      percent_credit:0,
     },
     evolucao: {},
     evolucao_despesas: {},

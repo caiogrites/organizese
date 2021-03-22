@@ -2,7 +2,7 @@
   <app-title title="Dashboard" subtitle="geral"></app-title>
 
   <div class="cards-main">
-    <app-cards *ngFor="let item of cards" [title]="item.title" [value]="item.value" [type]="item.type"></app-cards>
+    <app-cards *ngFor="let item of cards" [item]="item" [value]="item.value"></app-cards>
   </div>
   <div class="analise">
     <app-title title="Análise"></app-title>

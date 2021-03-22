@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser'
-import { NgModule } from '@angular/core'
+import { LOCALE_ID, NgModule } from '@angular/core'
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -27,6 +27,8 @@ import { NgxMaskModule } from 'ngx-mask'
 import { LoadInterceptor } from './interceptor/load.interceptor'
 import { ProfileEffect } from './effects/profile.effect';
 import { DownloadsComponent } from './components/downloads/downloads.component'
+import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core'
+import { MomentDateAdapter } from '@angular/material-moment-adapter'
 
 registerLocaleData(localePt, 'pt-BR')
 
@@ -67,8 +69,9 @@ const indexedConfig: DBConfig = {
     // DialogsComponent
   ],
   providers: [
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: LOCALE_ID, useValue: 'pt' },
     { provide: HTTP_INTERCEPTORS, useClass: DashboardInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: LoadInterceptor, multi: true },
     { provide: Constants },
     { provide: AppService },
   ],

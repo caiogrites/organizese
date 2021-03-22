@@ -19,19 +19,22 @@ export class MainComponent extends DashboardComponent implements OnInit, DoCheck
       title: 'Consolidado',
       icon: 'account_balance',
       value: 0,
-      type: 'consolidado'
+      type: 'consolidado',
+      percent: 0
     },
     {
       title: 'Credito',
       icon: 'account_balance',
       value: 0,
-      type: 'incoming'
+      type: 'incoming',
+      percent: 0
     },
     {
       title: 'Debito',
       icon: 'account_balance',
       value: 0,
-      type: 'outcoming'
+      type: 'outcoming',
+      percent: 0
     }
   ]
   public ELEMENT_DATA: Register[] = []
@@ -45,10 +48,11 @@ export class MainComponent extends DashboardComponent implements OnInit, DoCheck
   public totalDespesa: number = 0
   public totalReceita: number = 0
   public total: number = 0
+  public percent_consolidado: number = 0
+  public percent_debit: number = 0
   public filterByDays: number = 0
   public differ: any
   public isMainLoading: boolean = true
-  public teste2: any
 
   constructor(
     protected _store: Store,
@@ -99,6 +103,8 @@ export class MainComponent extends DashboardComponent implements OnInit, DoCheck
         this.ELEMENT_DATA = state.all.splice(0, 7)
         this.EVOLUCAO_DATA = state.evolucao
         this.EVOLUCAO_DESPESAS_DATA = state.evoucao_despesas
+        this.percent_consolidado = state.consolidado.percent_consolidado
+        this.percent_debit = state.consolidado.percent_debit
         return state
       }),
     ).subscribe(state => {
@@ -106,12 +112,15 @@ export class MainComponent extends DashboardComponent implements OnInit, DoCheck
         switch (value.type) {
           case 'incoming':
             value.value = state.consolidado.total_credit || 0
+            value.percent = state.consolidado.percent_credit|| 0
             break
           case 'outcoming':
             value.value = state.consolidado.total_debit || 0
+            value.percent = state.consolidado.percent_debit || 0
             break
           case 'consolidado':
             value.value = state.consolidado.total_consolidado || 0
+            value.percent = state.consolidado.percent_consolidado
             break
         }
       })

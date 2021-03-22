@@ -1,13 +1,14 @@
-<mat-card class="cards" [title]="title">
+<mat-card class="cards" [title]="item.title">
   <div class="cards-header">
     <div class="cards-title">
-      <span>{{title}}</span>
-      <mat-icon>{{icon}}</mat-icon>
+      <span>{{item.title}}</span>
+      <small>{{formatarPercent(item.percent)}} %</small>
+      <!-- <mat-icon>{{item.icon}}</mat-icon> -->
     </div>
   </div>
   <div class="cards-content">
     <div class="cards-cash">
-      <span class="cards-label">Valor Total:</span>
+      <span class="cards-label">Total:</span>
       <span [ngClass]="returnClass()">R$ {{ formatarValor(value) }} </span>
     </div>
   </div>
