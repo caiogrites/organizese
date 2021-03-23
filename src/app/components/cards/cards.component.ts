@@ -14,6 +14,9 @@ export class CardsComponent implements OnInit {
   @Input('type') public type: string = ''
   @Input('item') public item: any
 
+  public showValues: boolean = true
+  public changeTextHide: string = this.showValues ? 'visibility' : 'visibility_off'
+
   constructor() { }
 
   public ngOnInit(): void {
@@ -37,6 +40,12 @@ export class CardsComponent implements OnInit {
 
   public formatarPercent(valor: number): string {
     return valor.toFixed(2)
+  }
+
+  public hideShowValue(event: MouseEvent) {
+    event.stopPropagation()
+    this.showValues = !this.showValues
+    this.changeTextHide = this.changeTextHide === 'visibility' ? 'visibility_off' : 'visibility'
   }
 
 }

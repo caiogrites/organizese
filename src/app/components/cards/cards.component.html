@@ -1,15 +1,30 @@
 <mat-card class="cards" [title]="item.title">
   <div class="cards-header">
     <div class="cards-title">
-      <span>{{item.title}}</span>
-      <small>{{formatarPercent(item.percent)}} %</small>
-      <!-- <mat-icon>{{item.icon}}</mat-icon> -->
+      <div class="value-percent">
+        <span>{{item.title}}</span>
+        <small title="{{formatarPercent(item.percent)}} %"
+          *ngIf="showValues; else hidePercent">{{formatarPercent(item.percent)}} %</small>
+        <ng-template #hidePercent>
+          <small>-</small>
+        </ng-template>
+      </div>
+      <div title="esonder/mostar" (click)="hideShowValue($event)" class="eyes">
+        <mat-icon>{{changeTextHide}}</mat-icon>
+      </div>
     </div>
   </div>
   <div class="cards-content">
     <div class="cards-cash">
       <span class="cards-label">Total:</span>
-      <span [ngClass]="returnClass()">R$ {{ formatarValor(value) }} </span>
+      <span title="R$ {{formatarValor(value)}}" *ngIf="showValues; else hideValues" [ngClass]="returnClass()">
+        R$ {{ formatarValor(value) }}
+      </span>
+      <ng-template #hideValues>
+        <span class="hide-value">
+          R$&nbsp;<span></span>
+        </span>
+      </ng-template>
     </div>
   </div>
 </mat-card>

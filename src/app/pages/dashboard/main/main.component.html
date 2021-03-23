@@ -1,11 +1,11 @@
 <section class="main">
-  <app-title title="Dashboard" subtitle="geral"></app-title>
+  <!-- <app-title title="Dashboard" subtitle="geral"></app-title> -->
 
   <div class="cards-main">
     <app-cards *ngFor="let item of cards" [item]="item" [value]="item.value"></app-cards>
   </div>
   <div class="analise">
-    <app-title title="Análise"></app-title>
+    <!-- <app-title title="Análise"></app-title> -->
     <mat-card>
       <app-panel-control [filterByDays]="filterByDays" [aPagar]="aPagar" [aReceber]="aReceber" [total]="total"
         [totalReceita]="totalReceita" [totalDespesa]="totalDespesa">

@@ -23,6 +23,7 @@ export class HighchartsComponent implements OnInit, DoCheck {
   public chartLine: any = {
     chart: {
       type: 'column',
+      height: 400
     },
     navigator: { enabled: false },
     scrollbar: { enabled: false },
