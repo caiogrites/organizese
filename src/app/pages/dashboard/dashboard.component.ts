@@ -108,7 +108,7 @@ export class DashboardComponent implements OnInit, DoCheck, AfterViewInit {
       if (state.http_error.errors.length > 0) {
         this.handleError(state.http_error.errors[0])
       }
-      this.isLoadingDashboard = false
+
     })
 
     this._as?.pipe(filter(a => a.type === actionsErrors.actionsTypes.SET_SUCCESS))
@@ -151,6 +151,7 @@ export class DashboardComponent implements OnInit, DoCheck, AfterViewInit {
       this.fetchRegisters().then(() => {
         this.initDashboard().then(() => {
           this.fetchAutocomplete().then(() => {
+            this.isLoadingDashboard = false
           })
         })
       })

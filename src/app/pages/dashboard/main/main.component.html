@@ -1,18 +1,23 @@
 <section class="main">
   <!-- <app-title title="Dashboard" subtitle="geral"></app-title> -->
 
-  <div class="cards-main">
+  <div *ngIf="!isMobile" class="cards-main">
     <app-cards *ngFor="let item of cards" [item]="item" [value]="item.value"></app-cards>
   </div>
-  <div class="analise">
-    <!-- <app-title title="Análise"></app-title> -->
-    <mat-card>
-      <app-panel-control [filterByDays]="filterByDays" [aPagar]="aPagar" [aReceber]="aReceber" [total]="total"
-        [totalReceita]="totalReceita" [totalDespesa]="totalDespesa">
-      </app-panel-control>
-    </mat-card>
+
+  <div *ngIf="isMobile" class="cards-main">
+    <owl-carousel [options]="{items: 1}" style="width: 100%;" [carouselClasses]="['owl-theme', 'row', 'sliding']">
+      <app-cards style="max-width: 200px;" *ngFor="let item of cards" [item]="item" [value]="item.value"></app-cards>
+    </owl-carousel>
   </div>
-  <div class="highchart">
+
+  <div class="analise">
+    <app-panel-control [filterByDays]="filterByDays" [aPagar]="aPagar" [aReceber]="aReceber" [total]="total"
+      [totalReceita]="totalReceita" [totalDespesa]="totalDespesa">
+    </app-panel-control>
+  </div>
+
+  <div *ngIf="!isMobile" class="highchart">
     <div class="col-7">
       <app-title title="Despesas"></app-title>
       <app-highcharts [evolucao]="EVOLUCAO_DESPESAS_DATA"></app-highcharts>
@@ -24,7 +29,22 @@
     </div>
   </div>
 
+  <div *ngIf="isMobile" class="highchart">
+    <owl-carousel [options]="{items: 1}" style="width: 100%;" [carouselClasses]="['owl-theme', 'row', 'sliding']">
+      <div class="col-7">
+        <app-title title="Despesas"></app-title>
+        <app-highcharts [evolucao]="EVOLUCAO_DESPESAS_DATA"></app-highcharts>
+      </div>
+
+      <div class="col-7">
+        <app-title title="Receitas"></app-title>
+        <app-highcharts [evolucao]="EVOLUCAO_DATA"></app-highcharts>
+      </div>
+    </owl-carousel>
+  </div>
+
   <div style="margin-bottom: 80px">
     <app-list-registers *ngFor="let item of ELEMENT_DATA" [item]="item"></app-list-registers>
   </div>
+
 </section>

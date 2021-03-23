@@ -145,7 +145,12 @@
 
 ###### 21/03/2021
 
-* [] Corrigir calendario para portugues
-* [] Criar lista de release para download
-* [] Implementar método de download da release
+* [x] Corrigir calendario para portugues
+* [x] Criar lista de release para download
+* [x] Implementar método de download da release
 * [] Filtrar somente os 5 últimos
+
+###### 23/03/2021
+
+* [x] Show and Hide values on cards
+* [] Owl carousel para mobile

@@ -1,6 +1,11 @@
 @import "../../../styles.scss";
 
 .dialog {
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  display: flex;
   .header {
     width: 100%;
     display: flex;
@@ -15,5 +20,9 @@
   }
   .container-form-incoming {
     padding: 15px;
+    height: inherit;
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
   }
 }

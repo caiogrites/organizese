@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core'
-import { CommonModule } from '@angular/common'
 import { RouterModule, Routes } from '@angular/router'
 import { LoginComponent } from 'src/app/components/login/login.component'
 import { DialogsComponent } from 'src/app/components/dialogs/dialogs.component'
@@ -17,7 +16,7 @@ const routes: Routes = [
   { path: 'signup', component: SignUpComponent },
   { path: 'reset', component: ResetPasswordComponent },
   { path: 'verify', component: VerifyComponent },
-  { path: 'new_password', component: NewPasswordComponent},
+  { path: 'new_password', component: NewPasswordComponent },
 ]
 
 @NgModule({
@@ -32,9 +31,8 @@ const routes: Routes = [
     DownloadsComponent
   ],
   imports: [
-    CommonModule,
-    RouterModule.forChild(routes),
-    MaterialModule
+    MaterialModule,
+    RouterModule.forChild(routes)
   ],
   providers: [
     { provide: LoginService },

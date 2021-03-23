@@ -107,8 +107,8 @@ export class RegistersComponent extends DashboardComponent implements OnInit, Af
         this.isNegative = false
       }
 
-      this.user = await this.isEmpty(state.user)
-      this.ELEMENT_ORDER = await this.isEmpty(state.all)
+      this.user = state.user
+      this.ELEMENT_ORDER = state.all
       this.orderby ? this.makingOrdering(this.orderby) : this.ELEMENT_DATA = this.classificar(state.all)
       this.isLoadingRegisters = false
 
@@ -160,7 +160,7 @@ export class RegistersComponent extends DashboardComponent implements OnInit, Af
     return new Promise(resolve => {
       if (!this._utilsService.isEmpty(user)) {
         resolve(user)
-      }
+      } 
     })
   }
 
@@ -176,7 +176,7 @@ export class RegistersComponent extends DashboardComponent implements OnInit, Af
       brand: event.brand || this.user.credit_card?.brand,
       edit: false,
       user: this.user,
-      description: event.description || 'Sem descrição'
+      description: event.description?.trim() || 'Sem descrição'
     }
     this._store.dispatch(actionsRegister.ADD_REGISTERS({ payload }))
   }

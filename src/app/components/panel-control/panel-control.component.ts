@@ -1,3 +1,4 @@
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -13,7 +14,13 @@ export class PanelControlComponent implements OnInit {
   @Input() public filterByDays: number = 0
   @Input() public total: number = 0
 
-  constructor() { }
+  public isMobile: boolean
+
+  constructor(
+    private _breakpoint: BreakpointObserver
+  ) {
+    this._breakpoint.observe([Breakpoints.XSmall]).subscribe(result => this.isMobile = !!result.matches)
+  }
 
   ngOnInit(): void { }
 

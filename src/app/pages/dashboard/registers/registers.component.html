@@ -79,14 +79,14 @@
 
     <app-tab-content style="display: block; margin: 15px 0; height: 100%;">
       <div *ngIf="tab === 'read'" read style="margin-bottom: 70px;" #extrato id="extrato">
-        <div class="progress">
+
+        <!-- <div class="progress">
           <div class="encapsulate" [style.width]="totalPercent + '%'"></div>
-        </div>
-        <mat-card class="panel-header">
-          <app-panel-control [total]="total" [filterByDays]="days" [totalDespesa]="totalDespesa"
-            [totalReceita]="totalReceita" [aReceber]="aReceber" [aPagar]="aPagar" style="width: 100%;">
-          </app-panel-control>
-        </mat-card>
+        </div> -->
+
+        <app-panel-control [total]="total" [filterByDays]="days" [totalDespesa]="totalDespesa"
+          [totalReceita]="totalReceita" [aReceber]="aReceber" [aPagar]="aPagar" style="width: 100%;">
+        </app-panel-control>
 
         <ng-container *ngIf="ELEMENT_DATA.length > 0; else noneOfExtracts">
           <div *ngFor="let item of ELEMENT_DATA">

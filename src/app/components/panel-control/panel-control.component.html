@@ -1,4 +1,4 @@
-<div class="container-valores">
+<mat-card *ngIf="!isMobile" class="container-valores">
   <p>
     <small>A receber:</small>R$ {{formatarValor(aReceber || 0)}}
   </p>
@@ -17,4 +17,43 @@
   <p>
     <small>Período de:</small>{{filterByDays || 0}} dias
   </p>
+</mat-card>
+
+<div *ngIf="isMobile" class="mb-analise">
+  <mat-card>
+    <p>
+      <span>Despesas</span>
+      <small>R$ {{formatarValor(totalDespesa)}}</small>
+    </p>
+  </mat-card>
+  <mat-card>
+    <p>
+      <span>A receber</span>
+      <small>R$ {{formatarValor(aReceber)}}</small>
+    </p>
+  </mat-card>
+  <mat-card>
+    <p>
+      <span>Total</span>
+      <small>R$ {{formatarValor(total)}}</small>
+    </p>
+  </mat-card>
+  <mat-card>
+    <p>
+      <span>Receita</span>
+      <small>R$ {{formatarValor(totalReceita)}}</small>
+    </p>
+  </mat-card>
+  <mat-card>
+    <p>
+      <span>A pagar</span>
+      <small>R$ {{formatarValor(aPagar)}}</small>
+    </p>
+  </mat-card>
+  <mat-card>
+    <p>
+      <span>Período</span>
+      <small>{{filterByDays}} dias</small>
+    </p>
+  </mat-card>
 </div>

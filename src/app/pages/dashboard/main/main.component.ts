@@ -7,6 +7,7 @@ import * as actionsDashboard from '../../../actions/dashboard.actions'
 import { Router } from '@angular/router'
 import { MatDialog } from '@angular/material/dialog'
 import { delay, map } from 'rxjs/operators'
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout'
 
 @Component({
   selector: 'app-main',
@@ -59,9 +60,11 @@ export class MainComponent extends DashboardComponent implements OnInit, DoCheck
     protected _snackbar: MatSnackBar,
     protected _router: Router,
     protected _dialog: MatDialog,
-    protected _differs: KeyValueDiffers
+    protected _differs: KeyValueDiffers,
+    protected _breakpoint: BreakpointObserver
   ) {
     super()
+    this._breakpoint?.observe([Breakpoints.XSmall]).subscribe(result => this.isMobile = !!result.matches)
     this.differ = this._differs.find({}).create()
 
   }
@@ -112,7 +115,7 @@ export class MainComponent extends DashboardComponent implements OnInit, DoCheck
         switch (value.type) {
           case 'incoming':
             value.value = state.consolidado.total_credit || 0
-            value.percent = state.consolidado.percent_credit|| 0
+            value.percent = state.consolidado.percent_credit || 0
             break
           case 'outcoming':
             value.value = state.consolidado.total_debit || 0
@@ -133,5 +136,10 @@ export class MainComponent extends DashboardComponent implements OnInit, DoCheck
 
   public isLoaded(): Promise<boolean> {
     return new Promise(resolve => setTimeout(() => resolve(false), 500))
+  }
+  
+  public formatarValor(valor: number = 0): string {
+    return new Intl.NumberFormat('pt-BR', { currency: 'BRL', minimumFractionDigits: 2 })
+      .format(parseFloat(valor.toFixed(2)))
   }
 }

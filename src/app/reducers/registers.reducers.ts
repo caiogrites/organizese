@@ -37,7 +37,7 @@ const registersReducers = createReducer(
     const totals: any = total(payload.data.results)
     return ({
       ...states,
-      all: updateAll(payload.data.results),
+      all: payload.data.results.length > 0 ? updateAll(payload.data.results) : [],
       consolidado: payload.data.consolidado,
       msg: payload.msg,
       total: payload.data.total,

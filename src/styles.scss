@@ -45,6 +45,9 @@ $text-accent: var(--text-accent);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  @media (max-width: 600px) {
+    font-size: 2em;
+  }
 }
 
 @mixin text {
@@ -56,8 +59,8 @@ $text-accent: var(--text-accent);
 .dialog-default {
   width: 100%;
   height: 100%;
-  max-width: 768px !important;
-  max-height: 500px !important;
+  max-height: 568px;
+  max-width: 600px !important;
   .mat-dialog-container {
     padding: 0;
   }
@@ -282,15 +285,21 @@ h2.welcome-subtitle {
   background: #c2bcbc;
   border-radius: 10px;
 }
+
 @media screen and (max-width: 557px) {
   .dialog-default {
-    max-width: 280px !important;
-    max-height: 450px !important;
+    max-width: 90% !important;
   }
 }
 
-@media screen and (min-width: 557.98px) and (max-width: 769px) {
+@media screen and (min-width: 557.98px) and (max-width: 768px) {
   .dialog-default {
-    max-width: 420px !important;
+    max-width: calc(100% - 211px) !important;
+  }
+}
+
+@media screen and (min-width: 768.98px) and (max-width: 1024px) {
+  .dialog-default {
+    max-width: calc(100% - 256px) !important;
   }
 }

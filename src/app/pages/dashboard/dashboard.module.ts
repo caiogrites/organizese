@@ -28,6 +28,7 @@ import { NgxMaskModule } from 'ngx-mask'
 import { LoaderComponent } from "src/app/components/loader/loader.component"
 import { DownloadsComponent } from "src/app/components/downloads/downloads.component"
 import { LoginComponent } from "src/app/components/login/login.component"
+import { OwlModule } from 'ngx-owl-carousel'
 
 const routes: Routes = [
   {
@@ -75,8 +76,9 @@ registerLocaleData(localePt, 'pt')
     LoaderComponent,
   ],
   imports: [
-    RouterModule.forChild(routes),
     MaterialModule,
+    OwlModule,
+    RouterModule.forChild(routes),
     NgxMaskModule.forChild()
   ],
   entryComponents: [

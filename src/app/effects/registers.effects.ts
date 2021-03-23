@@ -32,8 +32,6 @@ export class RegistersEffect {
     ofType(actions.actionsTypes.INIT),
     mergeMap(({ payload }) => this._dashboardService.fetchRegisters(payload).pipe(catchError(e => of(e)))),
     map((payload) => {
-      if (!payload) return actions.GET_REGISTERS({ payload: [] })
-
       if (payload instanceof HttpErrorResponse) {
         const source = { ...payload, source: this.props.fetch_registers }
         return SET_ERRORS({ payload: source })
