@@ -61,12 +61,12 @@ export class HomeComponent implements OnInit {
           ? this._constants.get('file_images') + 'logo-windows-black'
           : this._constants.get('file_images') + 'logo-windows-white'
       })),
-      mac: payload['mac'].map((v: any) => ({
-        ...v,
-        icon: this.isDark()
-          ? this._constants.get('file_images') + 'logo-mac-black'
-          : this._constants.get('file_images') + 'logo-mac-white'
-      }))
+      // mac: payload['mac'].map((v: any) => ({
+      //   ...v,
+      //   icon: this.isDark()
+      //     ? this._constants.get('file_images') + 'logo-mac-black'
+      //     : this._constants.get('file_images') + 'logo-mac-white'
+      // }))
     })
   }
 
