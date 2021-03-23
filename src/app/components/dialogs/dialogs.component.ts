@@ -72,9 +72,9 @@ export class DialogsComponent implements OnInit {
     if (el) {
       html2canvas(el, { backgroundColor: color }).then(canvas => {
         // document.body.appendChild(canvas)
-        var a = document.createElement('a');
+        var a = document.createElement('a')
         a.href = canvas.toDataURL()
-        a.download = `${detail.description}-${new Date().getTime()}.png`;
+        a.download = `${detail.description}-${new Date().getTime()}.png`
         a.click()
       })
     }

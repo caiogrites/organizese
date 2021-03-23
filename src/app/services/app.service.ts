@@ -36,4 +36,5 @@ export class AppService {
   public downloadList(): Observable<any> {
     return this.http.get<any>(this.constants.get('file_download_list'))
   }
+  
 }

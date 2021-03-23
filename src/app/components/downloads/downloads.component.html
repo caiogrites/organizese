@@ -3,8 +3,8 @@
   <div mat-line>{{downloadItem.label}}</div>
   <img mat-list-icon [src]="downloadItem.icon" alt="logo">
   <small mat-line>Versão: {{downloadItem.version}}</small>
-  <small mat-line>Release: {{downloadItem.name}}</small>
-  <button mat-icon-button type="button">
+  <small mat-line>Release: {{downloadItem.release}}</small>
+  <button (click)="download(downloadItem.release, downloadItem.system)" mat-icon-button type="button">
     <mat-icon>download</mat-icon>
   </button>
 </mat-list-item>

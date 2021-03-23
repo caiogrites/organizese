@@ -17,7 +17,6 @@ export class CardsComponent implements OnInit {
   constructor() { }
 
   public ngOnInit(): void {
-    console.log(this.item)
   }
 
   public returnClass(): string {

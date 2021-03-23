@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core"
 import { MatDialog } from "@angular/material/dialog"
 import { MatSnackBar } from "@angular/material/snack-bar"
 import { Router } from "@angular/router"
+import { catchError, map } from "rxjs/operators"
 import { DialogsComponent } from "src/app/components/dialogs/dialogs.component"
 import { AppService } from "src/app/services/app.service"
 import { Constants } from "src/app/services/constants"
@@ -18,52 +19,7 @@ export class HomeComponent implements OnInit {
   public background: string = this._constants.get('file_images') + 'background-home-6'
   public iconName: string = ''
   public currentOS: string = ''
-
-  public downloadList: any = {
-    current_os: '',
-    linux: [
-      {
-        label: 'Linux - Ubuntu 20.04 LTS',
-        name: 'organizese-1-1-0.deb',
-        version: '1.1.0',
-        icon: this.isDark() ? this._constants.get('file_images') + 'logo-linux' : this._constants.get('file_images') + 'logo-linux-white'
-      },
-      {
-        label: 'Linux - Ubuntu 20.04 LTS',
-        name: 'organizese-1-1-1.deb',
-        version: '1.1.1',
-        icon: this.isDark() ? this._constants.get('file_images') + 'logo-linux' : this._constants.get('file_images') + 'logo-linux-white'
-      },
-      {
-        label: 'Linux - Ubuntu 20.04 LTS',
-        name: 'organizese-1-1-2.deb',
-        version: '1.1.2',
-        icon: this.isDark() ? this._constants.get('file_images') + 'logo-linux' : this._constants.get('file_images') + 'logo-linux-white'
-      }
-    ],
-    windows: [
-      {
-        label: 'Windows 10',
-        name: 'organizese-1-1-1.msi',
-        version: '1.1.0',
-        icon: this.isDark() ? this._constants.get('file_images') + 'logo-windows-black' : this._constants.get('file_images') + 'logo-windows-white'
-      },
-      {
-        label: 'Windows 10',
-        name: 'organizese-1-1-1.msi',
-        version: '1.1.0',
-        icon: this.isDark() ? this._constants.get('file_images') + 'logo-windows-black' : this._constants.get('file_images') + 'logo-windows-white'
-      }
-    ],
-    mac: [
-      {
-        label: "Mac OS",
-        name: 'organizese-1-1-0.tar.gz',
-        version: '1.1.0',
-        icon: this.isDark() ? this._constants.get('file_images') + 'logo-mac-black' : this._constants.get('file_images') + 'logo-mac-white'
-      }
-    ]
-  }
+  public downloadList: any = {}
 
   constructor(
     private _dialog: MatDialog,
@@ -85,7 +41,33 @@ export class HomeComponent implements OnInit {
 
   public ngOnInit(): void {
     this.downloadList.current_os = this.currentOS
-    this._appService.downloadList().subscribe((res) => console.log(res))
+    this._appService.downloadList().pipe(map(({ download_list }) =>
+      this.addIconOnPayload(download_list))).subscribe((res) => this.downloadList = res)
+  }
+
+  private addIconOnPayload(payload: any) {
+    return ({
+      ...payload,
+      current_os: this.currentOS,
+      linux: payload['linux'].map((v: any) => ({
+        ...v,
+        icon: this.isDark()
+          ? this._constants.get('file_images') + 'logo-linux'
+          : this._constants.get('file_images') + 'logo-linux-white'
+      })),
+      windows: payload['windows'].map((v: any) => ({
+        ...v,
+        icon: this.isDark()
+          ? this._constants.get('file_images') + 'logo-windows-black'
+          : this._constants.get('file_images') + 'logo-windows-white'
+      })),
+      mac: payload['mac'].map((v: any) => ({
+        ...v,
+        icon: this.isDark()
+          ? this._constants.get('file_images') + 'logo-mac-black'
+          : this._constants.get('file_images') + 'logo-mac-white'
+      }))
+    })
   }
 
   public login(): void {
