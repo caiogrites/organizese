@@ -1,12 +1,10 @@
 import { Component, OnInit } from "@angular/core"
 import { MatDialog } from "@angular/material/dialog"
-import { MatSnackBar } from "@angular/material/snack-bar"
 import { Router } from "@angular/router"
-import { catchError, map } from "rxjs/operators"
+import { map } from "rxjs/operators"
 import { DialogsComponent } from "src/app/components/dialogs/dialogs.component"
 import { AppService } from "src/app/services/app.service"
 import { Constants } from "src/app/services/constants"
-import { LoginService } from "src/app/services/login.service"
 
 @Component({
   selector: 'app-home',
@@ -20,6 +18,7 @@ export class HomeComponent implements OnInit {
   public iconName: string = ''
   public currentOS: string = ''
   public downloadList: any = {}
+  public isLoading: boolean = true
 
   constructor(
     private _dialog: MatDialog,
@@ -42,7 +41,12 @@ export class HomeComponent implements OnInit {
   public ngOnInit(): void {
     this.downloadList.current_os = this.currentOS
     this._appService.downloadList().pipe(map(({ download_list }) =>
-      this.addIconOnPayload(download_list))).subscribe((res) => this.downloadList = res)
+      this.addIconOnPayload(download_list))).subscribe((res) => {
+        this.isLoading = false
+        this.downloadList = res
+      }, err => {
+        this.isLoading = false
+      })
   }
 
   private addIconOnPayload(payload: any) {

@@ -66,6 +66,42 @@ $text-accent: var(--text-accent);
   }
 }
 
+.mat-menu-panel.profile {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 8px 0;
+  .mat-menu-content:not(:empty) {
+    width: 100%;
+  }
+  ul {
+    list-style: none;
+    text-align: center;
+    width: 100%;
+
+    .img-perfil mat-icon {
+      font-size: 5em;
+      width: inherit;
+      height: inherit;
+    }
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: rgba(0, 0, 0, 0.1);
+      margin: 16px 0;
+    }
+    li.settings,
+    li.logout {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 8px 16px;
+      cursor: pointer;
+    }
+  }
+}
 .light-mode {
   @include angular-material-theme($app-light-theme);
   background: $bg-light-mode;
@@ -289,6 +325,17 @@ h2.welcome-subtitle {
 @media screen and (max-width: 557px) {
   .dialog-default {
     max-width: 90% !important;
+  }
+  .mat-menu-panel.profile {
+    width: 200px;
+
+    ul .img-perfil mat-icon {
+      font-size: 3em;
+    }
+    ul li.settings,
+    ul li.logout {
+      font-size: 0.9em;
+    }
   }
 }
 

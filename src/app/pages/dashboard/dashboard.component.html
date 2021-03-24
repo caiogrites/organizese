@@ -2,8 +2,8 @@
   <mat-drawer-container class="container">
     <mat-drawer #drawer mode="over" opened="false">
       <ul class="app-menu-list">
-        <li [title]="item.name" (click)="goTo(item)" [ngClass]="{'link-active': isActive === item.link}" (click)="drawer.toggle()"
-          *ngFor="let item of menuList" [routerLink]="item.link">
+        <li [title]="item.name" (click)="goTo(item)" [ngClass]="{'link-active': isActive === item.link}"
+          (click)="drawer.toggle()" *ngFor="let item of menuList" [routerLink]="item.link">
           <a>
             <mat-icon>{{item.icon}}</mat-icon>
           </a>
@@ -20,8 +20,8 @@
     <mat-drawer-content>
       <div class="sidebar bg-mode">
         <ul class="app-menu-list">
-          <li [title]="item.name" (click)="goTo(item)" [ngClass]="{'link-active': isActive === item.link}" *ngFor="let item of menuList"
-            [routerLink]="item.link">
+          <li [title]="item.name" (click)="goTo(item)" [ngClass]="{'link-active': isActive === item.link}"
+            *ngFor="let item of menuList" [routerLink]="item.link">
             <a>
               <mat-icon>{{item.icon}}</mat-icon>
             </a>
@@ -62,9 +62,52 @@
               <span [ngClass]="returnClass()">R$ {{ formatarValor(consolidado || 0) }}</span>
             </div>
 
-            <button mat-icon-button style="margin-right: auto;">
+            <button mat-icon-button title="Perfil" mat-icon-button [matMenuTriggerFor]="perfil"
+              style="margin-right: auto;">
               <mat-icon>account_circle</mat-icon>
             </button>
+
+            <mat-menu #perfil="matMenu" overlapTrigger="true" class="profile">
+              <ul role="list">
+                <div class="img-perfil">
+                  <mat-icon>account_circle</mat-icon>
+                </div>
+                <li role="list-item">
+                  <p style="display: flex; flex-direction: column">
+                    <small> {{user?.name}}</small>
+                    <small> {{user?.email}}</small>
+                    <small> {{user?.tel}}</small>
+                  </p>
+                </li>
+
+                <li class="divider">
+                  <mat-divider></mat-divider>
+                </li>
+                <li routerLink="/dashboard/settings" class="settings">
+                  <mat-icon>settings</mat-icon>
+                  <span>Configurações</span>
+                </li>
+                <li (click)="logout()" class="logout">
+                  <mat-icon>logout</mat-icon>
+                  <span>Sair</span>
+                </li>
+                <!-- <mat-list role="list">
+                <mat-list-item role="list-item">
+                </mat-list-item>
+                <mat-list-item role="list-item">{{(user?.created_at * 1000)| date:'dd/MM/Y'}}</mat-list-item>
+                <mat-list-item role="list-item">{{user?.verified ? 'sim' : 'não'}}</mat-list-item>
+              </mat-list> -->
+              </ul>
+              <!-- <button (click)="edit($event, item)" mat-menu-item>
+                <mat-icon style="color: #323232">edit</mat-icon>
+                <span style="font-weight: 500">EDITAR</span>
+              </button>
+      
+              <button (click)="del($event, item)" mat-menu-item>
+                <mat-icon style="color:black;" class="icon-mat-menu">delete</mat-icon>
+                <span style="font-weight: 500">DELETAR</span>
+              </button> -->
+            </mat-menu>
           </mat-toolbar-row>
         </mat-toolbar>
 

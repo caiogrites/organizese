@@ -153,4 +153,10 @@
 ###### 23/03/2021
 
 * [x] Show and Hide values on cards
-* [] Owl carousel para mobile
+* [x] Owl carousel para mobile
+* [x] Perfil de usuário
+
+###### 24/03/2021
+
+* [x] Reset all data when user logout
+* [] Boot animation

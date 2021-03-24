@@ -75,6 +75,9 @@ registerLocaleData(localePt, 'pt')
     PanelControlComponent,
     LoaderComponent,
   ],
+  exports: [
+    LoaderComponent
+  ],
   imports: [
     MaterialModule,
     OwlModule,

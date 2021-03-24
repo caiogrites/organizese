@@ -15,6 +15,7 @@ export class DialogsComponent implements OnInit {
   public detail: Register
   public showProgressbar: boolean = false
   public downloadList: any
+  public isLoading: boolean = true
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public DIALOG_DATA: DIALOG_DATA,

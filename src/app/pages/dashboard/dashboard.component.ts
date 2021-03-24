@@ -9,7 +9,7 @@ import * as actionsLogin from '../../actions/login.actions'
 import * as actionsApp from '../../actions/app.actions'
 import * as actionsProfile from '../../actions/profile.actions'
 import { MatSnackBar } from '@angular/material/snack-bar'
-import { filter, map, startWith } from 'rxjs/operators'
+import { delay, filter, map, startWith } from 'rxjs/operators'
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout'
 import { ScrollService } from 'src/app/services/scroll.service'
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog'
@@ -142,7 +142,7 @@ export class DashboardComponent implements OnInit, DoCheck, AfterViewInit {
     return new Promise(resolve => {
       if (!this._utilsService?.isEmpty(payload)) {
         resolve(payload)
-      }
+      } 
     })
   }
 
@@ -275,5 +275,4 @@ export class DashboardComponent implements OnInit, DoCheck, AfterViewInit {
       this._store?.dispatch(actionsApp.RESET_ALL())
     }
   }
-
 }

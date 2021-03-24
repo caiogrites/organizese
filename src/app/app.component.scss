@@ -1,57 +1,62 @@
-.offline {
+@import "../styles.scss";
+
+.app {
+  width: 100%;
+  height: 100%;
+  .routes,
+  .loading {
+    width: inherit;
+    height: inherit;
+  }
+  .loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+    flex-direction: column;
+    .container-loading {
+      max-width: 512px;
+      img {
+        max-width: 256px;
+        margin: 8px 0;
+        @media (max-width: 600px) {
+          max-width: 128px;
+        }
+      }
+    }
+  }
+}
+
+.not-found {
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-
-  .container-offline {
+  background-color: #f0f0f0;
+  .container-not-found {
     height: inherit;
     width: inherit;
-    max-width: 600px;
-    max-height: 500px;
+    max-width: 550px;
+    max-height: 350px;
     font-weight: 100;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
-    .title {
-      text-align: center;
-      font-size: 2em;
+    text-align: center;
+    h1 {
+      font-weight: 100;
+      font-size: 3em;
     }
-    .wifi-off {
-      text-align: center;
-      mat-icon {
-        font-size: 6em;
-        width: inherit;
-        height: inherit;
+    button {
+      @include custom-button-icon-width-text;
+    }
+    @media (max-width: 600px) {
+      padding: 16px;
+      h1 {
+        font-size: 2em;
+        text-align: center;
       }
     }
-    .causas,
-    .solucoes {
-      margin: 16px 0;
-    }
-    .suporte ul {
-      display: flex;
-      justify-content: space-between;
-    }
-    .suporte li {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      text-decoration: none;
-    }
-  }
-}
-
-@media screen and (max-width: 600px) {
-  .offline .container-offline {
-    max-width: 300px;
-  }
-  .offline .container-offline .suporte ul {
-    display: block;
-  }
-  .offline .container-offline .suporte li {
-    margin: 8px 0;
   }
 }

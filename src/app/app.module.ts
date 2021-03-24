@@ -27,6 +27,8 @@ import { ProfileEffect } from './effects/profile.effect'
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core'
 import { MomentDateAdapter } from '@angular/material-moment-adapter'
 import { OwlModule } from 'ngx-owl-carousel'
+import { DashboardModule } from './pages/dashboard/dashboard.module'
+import { LoaderComponent } from './components/loader/loader.component'
 
 registerLocaleData(localePt, 'pt-BR')
 
@@ -51,6 +53,7 @@ const indexedConfig: DBConfig = {
     MaterialModule,
     AppRoutingModule,
     LoginModule,
+    DashboardModule,
     NgxMaskModule.forRoot(),
     NgxIndexedDBModule.forRoot(indexedConfig),
     StoreModule.forRoot(OrganizeseStore),

@@ -1,25 +1,34 @@
 <mat-card *ngIf="!isMobile" class="container-valores">
   <p>
-    <small>A receber:</small>R$ {{formatarValor(aReceber || 0)}}
+    <small>Receita: </small>R$ {{formatarValor(totalReceita || 0)}}
   </p>
   <p>
-    <small>A pagar:</small>R$ {{formatarValor(aPagar || 0)}}
+    <small>Gastos: </small>R$ {{formatarValor(totalDespesa || 0)}}
   </p>
   <p>
-    <small>Gastos:</small>R$ {{formatarValor(totalDespesa || 0)}}
+    <small>A receber: </small>R$ {{formatarValor(aReceber || 0)}}
   </p>
   <p>
-    <small>Receita:</small>R$ {{formatarValor(totalReceita || 0)}}
+    <small>A pagar: </small>R$ {{formatarValor(aPagar || 0)}}
   </p>
   <p>
-    <small>Média:</small>R$ {{formatarValor((totalDespesa / filterByDays) || 0)}}
+    <small>Média: </small>R$ {{formatarValor((totalDespesa / filterByDays) || 0)}} diária
   </p>
   <p>
-    <small>Período de:</small>{{filterByDays || 0}} dias
+    <small>Qtd registros: </small>{{total || 0}}
+  </p>
+  <p>
+    <small>Período de: </small>{{filterByDays || 0}} dias
   </p>
 </mat-card>
 
 <div *ngIf="isMobile" class="mb-analise">
+  <mat-card>
+    <p>
+      <span>Receita</span>
+      <small>R$ {{formatarValor(totalReceita)}}</small>
+    </p>
+  </mat-card>
   <mat-card>
     <p>
       <span>Despesas</span>
@@ -34,20 +43,19 @@
   </mat-card>
   <mat-card>
     <p>
-      <span>Total</span>
-      <small>R$ {{formatarValor(total)}}</small>
-    </p>
-  </mat-card>
-  <mat-card>
-    <p>
-      <span>Receita</span>
-      <small>R$ {{formatarValor(totalReceita)}}</small>
-    </p>
-  </mat-card>
-  <mat-card>
-    <p>
       <span>A pagar</span>
       <small>R$ {{formatarValor(aPagar)}}</small>
+    </p>
+  </mat-card>
+  <mat-card>
+    <p>
+      <small>Média diária: </small>R$ {{formatarValor((totalDespesa / filterByDays) || 0)}}
+    </p>
+  </mat-card>
+  <mat-card>
+    <p>
+      <span>Registros</span>
+      <small>{{total}}</small>
     </p>
   </mat-card>
   <mat-card>

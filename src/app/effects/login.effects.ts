@@ -5,6 +5,7 @@ import { catchError, map, mergeMap } from 'rxjs/operators'
 import { SET_ERRORS, SET_SUCCESS } from '../actions/errors.actions'
 import { HttpErrorResponse } from '@angular/common/http'
 import * as actionsLogin from '../actions/login.actions'
+import * as actionsApp from '../actions/app.actions'
 import { LoginService } from '../services/login.service'
 import { Store } from '@ngrx/store'
 
@@ -62,7 +63,10 @@ export class LoginEffect {
   @Effect()
   public logout$: Observable<Actions> = this._action.pipe(
     ofType(actionsLogin.LOGOUT),
-    mergeMap(() => this._loginService.logout().pipe(map(() => actionsLogin.RESET()))),
+    mergeMap(() => this._loginService.logout().pipe(map(() => {
+      this._store.dispatch(actionsApp.RESET_ALL())
+      return actionsLogin.RESET()
+    }))),
     catchError(err => of(err))
   )
 }

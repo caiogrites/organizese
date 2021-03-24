@@ -6,6 +6,8 @@ import * as actionsErrors from './actions/errors.actions'
 import { LoadService } from './services/load.service'
 import { IpcService } from './services/ipc.service'
 import { Constants } from './services/constants'
+import { timeStamp } from 'console'
+import { HttpErrorResponse } from '@angular/common/http'
 
 @Component({
   selector: 'app-root',
@@ -16,16 +18,16 @@ import { Constants } from './services/constants'
 export class AppComponent implements AfterViewInit {
   private renderer: Renderer2
   private colorTheme: string = ''
-  // public isOnline: boolean = false
-  // public isLoading: boolean = true
-  // public isError: boolean = false
+  public isOnline: boolean = false
+  public isLoading: boolean = true
+  public isError: boolean = false
   public isDark: boolean
   public logo: string = './assets/icon-default-white-512x512.svg'
+  public iconLoading: string = './assets/icon-default-white-512x512.svg'
 
   constructor(
     private _rendereFactory: RendererFactory2,
     private _store: Store,
-    private _loadService: LoadService,
     private _ipcService: IpcService,
     private _constants: Constants
   ) {
@@ -33,18 +35,21 @@ export class AppComponent implements AfterViewInit {
     this.renderer = this._rendereFactory.createRenderer(null, null)
     this.initTheme()
     this.isDark = this.isDarkMode()
+
     this._store.dispatch(actionsDashboard.DARK_MODE({ payload: this.colorTheme }))
     this._store.dispatch(actionsApp.ONLINE())
     this._store.select(({ http_error, app }: any) => ({ errors: http_error.errors, online: app.online }))
       .subscribe(state => {
         if (state.errors.length > 0) {
-          console.error(state.errors[0])
+          this.handlerError(state.errors[0])
         }
-        // if (state.errors.length == 0 && state.online) {
-        //   this.isOnline = true
-        //   this.isLoading = false
-        //   this.isError = false
-        // }
+
+        if (state.errors.length == 0 && state.online) {
+          setTimeout(() => {
+            this.isOnline = true
+            this.isLoading = false
+          }, 1000)
+        }
       })
 
     this._ipcService?.send('reload', 'from angular to electron')
@@ -80,5 +85,17 @@ export class AppComponent implements AfterViewInit {
     } else {
       return 'icon-deffault-transparent-512x512'
     }
+  }
+
+  public handlerError(error: HttpErrorResponse): void {
+    console.log(error)
+    setTimeout(() => {
+      this.isError = true
+    }, 5000);
+  }
+
+  public reloading(): void {
+    // this._store.dispatch(actionsApp.ONLINE())
+    window.location.reload()
   }
 }

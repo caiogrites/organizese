@@ -72,9 +72,9 @@
     </div>
     <mat-list role="list" style="height: inherit;">
       <!-- <p>Linux</p> -->
-      <app-downloads *ngFor="let i of downloadList.linux" [downloadItem]="i"></app-downloads>
+      <app-downloads *ngFor="let i of downloadList?.linux" [downloadItem]="i"></app-downloads>
       <!-- <p>Windows</p> -->
-      <app-downloads *ngFor="let i of downloadList.windows" [downloadItem]="i"></app-downloads>
+      <app-downloads *ngFor="let i of downloadList?.windows" [downloadItem]="i"></app-downloads>
       <!-- <p>Mac</p> -->
       <!-- <app-downloads *ngFor="let i of downloadList.mac" [downloadItem]="i"></app-downloads> -->
     </mat-list>

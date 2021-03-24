@@ -11,16 +11,19 @@ export interface window {
 
 export class IpcService {
   private _ipc: IpcRenderer | undefined = void 0
+  public isWeb: boolean
 
   constructor() {
     if (window.require) {
       try {
         this._ipc = window.require('electron').ipcRenderer
+        this.isWeb = false
         console.group('%cBem-vindo ao Organizese App', "color: #2196F3")
       } catch (e) {
         throw e
       }
     } else {
+      this.isWeb = true
       console.group('%cBem-vindo ao Organizese Web', "color: #2196F3")
     }
   }
