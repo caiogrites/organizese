@@ -5,6 +5,8 @@ import { DashboardComponent } from '../dashboard.component'
 import * as actionsDashboard from '../../../actions/dashboard.actions'
 import * as actionsProfile from '../../../actions/profile.actions'
 import * as actionsRegisters from '../../../actions/registers.actions'
+import * as actionsApp from '../../../actions/app.actions'
+import * as actionsLogin from '../../../actions/login.actions'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { DashboardService } from 'src/app/services/dashboard.service'
@@ -298,6 +300,7 @@ export class SettingsComponent extends DashboardComponent implements OnInit, DoC
           this._snackbar.open('excluindo sua conta aguarde...')
           this._profileService.profileDeleteUser(this.user).pipe(delay(3000)).subscribe(
             (res) => {
+              this._store.dispatch(actionsLogin.LOGOUT())
               this._router.navigateByUrl('/')
               this._snackbar.open(res.message, 'ok')
             }, (err) => {
