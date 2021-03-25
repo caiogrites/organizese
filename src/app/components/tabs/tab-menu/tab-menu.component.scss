@@ -3,7 +3,18 @@
 .tab-menu {
   display: flex;
   list-style: none;
+  width: 100%;
 }
 .btn-tab {
   @include custom-button-icon-width-text;
+}
+.span-btn {
+  width: 100%;
+  height: inherit;
+  display: flex;
+  padding: 8px 0;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: pointer;
+  font-weight: 300;
 }

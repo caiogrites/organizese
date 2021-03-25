@@ -2,6 +2,33 @@
 
 .settings {
   position: relative;
+  height: 100%;
+  .tabs {
+    display: flex;
+    .tab-header {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      max-width: 300px;
+    }
+    .tab-content {
+      flex: 1;
+    }
+    @media (max-width: 600px) {
+      .tab-header {
+        max-width: 100%;
+      }
+    }
+  }
+  .profile,
+  .new-password,
+  .theme,
+  .about {
+    flex: 1;
+  }
+  ::ng-deep .mat-expansion-panel-body {
+    padding: 0 16px;
+  }
   .progress-bar {
     position: absolute;
     top: -10px;
@@ -20,12 +47,19 @@
     display: flex;
     justify-content: flex-end;
   }
-  .form-profile {
+  .form-profile,
+  .form-account {
     .container-forms {
       display: flex;
       width: 100%;
       justify-content: space-between;
       flex-wrap: wrap;
+    }
+    @media (max-width: 600px) {
+      .container-forms .form-inline,
+      .container-forms .form-inline .form {
+        width: 100%;
+      }
     }
   }
   .form-buttons button {

@@ -76,7 +76,11 @@ registerLocaleData(localePt, 'pt')
     LoaderComponent,
   ],
   exports: [
-    LoaderComponent
+    LoaderComponent,
+    TabsComponent,
+    TabMenuComponent,
+    TabContentComponent,
+    TabHeaderComponent,
   ],
   imports: [
     MaterialModule,
