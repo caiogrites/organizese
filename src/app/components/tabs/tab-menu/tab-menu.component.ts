@@ -14,31 +14,29 @@ export class TabMenuComponent implements OnInit {
   @Input() public target: string = ''
   @Input() public isButton: boolean = true
   @Input() public subtitle: string
-  
+
   public tabActive: boolean
   public visible: boolean
   public isMobile: boolean
+  private tabList: string[]
 
   constructor(
     private _store: Store,
     private _breakpointObserver: BreakpointObserver
   ) {
     _breakpointObserver.observe([Breakpoints.XSmall]).subscribe(result => this.isMobile = !!result.matches)
-    this.setTabToShow()
   }
 
   public ngOnInit(): void {
-    // this._store.select(({ registers }: any) => registers.tab)
-    //   .subscribe(tab => this.tabActive = !!(tab === this.target))
-
-    // this._store.select(({ registers }: any) => registers.visible)
-    //   .subscribe(visible => this.visible = !!(visible[this.target]))
-
-    this._store.select(({ registers }: any) => ({ tab: registers.tab, visible: registers.visible }))
+    this._store.select(({ registers }: any) =>
+      ({ tab: registers.tab, visible: registers.visible, tabList: registers.tabList }))
       .subscribe(state => {
         this.tabActive = !!(state.tab === this.target)
         this.visible = !!(state.visible[this.target])
+        this.tabList = state.tabList
       })
+
+    this.setTabToShow(this.tabList)
   }
 
   public selectedTab(target: string): void {
@@ -50,11 +48,9 @@ export class TabMenuComponent implements OnInit {
     }
   }
 
-  private setTabToShow(): void {
+  private setTabToShow(tabList: string[]): void {
     this._store.dispatch(actionsRegisters.GET_SHOWTAB({
-      payload: [
-        'read', 'create', 'print', 'profile', 'new_password', 'theme', 'about'
-      ]
+      payload: tabList
     }))
   }
 }

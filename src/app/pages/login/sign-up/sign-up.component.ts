@@ -1,4 +1,3 @@
-import { HttpErrorResponse } from '@angular/common/http'
 import { Component, DoCheck, KeyValueDiffers, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { MatSnackBar } from '@angular/material/snack-bar'
@@ -62,7 +61,7 @@ export class SignUpComponent implements OnInit, DoCheck {
       .subscribe(state => {
         if (state.errors.length > 0) {
           this.isLoading = false
-          this._snackbar.open(state.errors[0].e.error.message, 'ok')
+          this._snackbar.open(state.errors[0].error.message, 'ok')
         }
         this.created_user = state.created_user
       })

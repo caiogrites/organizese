@@ -59,7 +59,12 @@
 
             <div title="Consolidado" class="prev-consolidado">
               <span>Consolidado</span>
-              <span [ngClass]="returnClass()">R$ {{ formatarValor(consolidado || 0) }}</span>
+              <span *ngIf="hideValues; else hide" [ngClass]="returnClass()">R$ {{ formatarValor(consolidado || 0) }}</span>
+              <ng-template #hide>
+                <span class="hide-value">
+                  R$&nbsp;<span></span>
+                </span>
+              </ng-template>
             </div>
 
             <button mat-icon-button title="Perfil" mat-icon-button [matMenuTriggerFor]="perfil"

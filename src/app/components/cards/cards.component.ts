@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-
+import { Component, Input, OnInit } from '@angular/core'
+import { Store } from '@ngrx/store'
+import * as actionsApp from '../../actions/app.actions'
 @Component({
   selector: 'app-cards',
   templateUrl: './cards.component.html',
@@ -17,7 +18,9 @@ export class CardsComponent implements OnInit {
   public showValues: boolean = true
   public changeTextHide: string = this.showValues ? 'visibility' : 'visibility_off'
 
-  constructor() { }
+  constructor(
+    private _store: Store
+  ) { }
 
   public ngOnInit(): void {
   }
@@ -46,6 +49,7 @@ export class CardsComponent implements OnInit {
     event.stopPropagation()
     this.showValues = !this.showValues
     this.changeTextHide = this.changeTextHide === 'visibility' ? 'visibility_off' : 'visibility'
+    this._store.dispatch(actionsApp.HIDE_VALUES({ payload: this.showValues }))
   }
 
 }

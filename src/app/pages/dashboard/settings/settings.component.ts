@@ -10,8 +10,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { DashboardService } from 'src/app/services/dashboard.service'
 import { version, author, description } from '../../../../../package.json'
 import { UtilsService } from 'src/app/utils/utis.service'
-import { Observable } from 'rxjs'
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout'
+import { MatDialog } from '@angular/material/dialog'
+import { DialogConfirmComponent } from 'src/app/components/dialog-confirm/dialog-confirm.component'
+import { ProfileService } from 'src/app/services/profile.service'
+import { delay } from 'rxjs/operators'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-settings',
@@ -41,6 +45,45 @@ export class SettingsComponent extends DashboardComponent implements OnInit, DoC
   public hideTabHeader: boolean
   public tabActive: boolean
   public showTabContent: boolean
+  public tabList: string[]
+
+  public settingsMenu = [
+    {
+      subtitle: 'definir seu nome ou e-mail',
+      is_button: false,
+      icon: 'person',
+      label: 'Perfil',
+      target: 'profile'
+    },
+    {
+      subtitle: 'definir nova senha',
+      is_button: false,
+      icon: 'vpn_key',
+      label: 'Nova senha',
+      target: 'new_password'
+    },
+    {
+      subtitle: 'dark ou light mode',
+      is_button: false,
+      icon: 'dark_mode',
+      label: 'Tema',
+      target: 'theme'
+    },
+    {
+      subtitle: 'deletar sua conta',
+      is_button: false,
+      icon: 'manage_accounts',
+      label: 'Conta',
+      target: 'account'
+    },
+    {
+      subtitle: 'sobre o app',
+      is_button: false,
+      icon: 'info',
+      label: 'Sobre',
+      target: 'about'
+    },
+  ]
 
   constructor(
     protected _renderedFactory: RendererFactory2,
@@ -50,7 +93,10 @@ export class SettingsComponent extends DashboardComponent implements OnInit, DoC
     protected _dashboardService: DashboardService,
     protected _utilsService: UtilsService,
     protected _differs: KeyValueDiffers,
-    protected _breakpointObserver: BreakpointObserver
+    protected _breakpointObserver: BreakpointObserver,
+    protected _dialog: MatDialog,
+    protected _profileService: ProfileService,
+    protected _router: Router
   ) {
     super()
     _breakpointObserver.observe([Breakpoints.XSmall]).subscribe(result => this.isMobile = !!result.matches)
@@ -73,12 +119,15 @@ export class SettingsComponent extends DashboardComponent implements OnInit, DoC
     this._store.select(({ profile, registers }: any) => ({
       user: profile.user,
       tab: registers.tab,
-      visible: registers.vibible
+      visible: registers.vibible,
+      tabList: registers.tabList
     }))
       .subscribe(async state => {
         this.tab = state.tab
         this.visible = state.visible
+        this.tabList = state.tabList
         this.user = await this.isEmpty(state.user)
+
         this.formProfile.patchValue({
           name: this.user.name,
           email: this.user.email,
@@ -87,10 +136,6 @@ export class SettingsComponent extends DashboardComponent implements OnInit, DoC
         })
         this.isLoading = false
       })
-
-    // this._store.select(({ login }: any) => ({ user: login.user })).pipe(
-    //   mergeMap((state) => from(this.isEmpty(state.user)))
-    // ).subscribe(user => console.log(user))
 
     this.formProfile = this._fb.group({
       name: [''],
@@ -132,11 +177,7 @@ export class SettingsComponent extends DashboardComponent implements OnInit, DoC
           if (!this.isMobile) {
             this.tabActive = false
             this._store.dispatch(actionsRegisters.GET_TAB({ payload: 'profile' }))
-            this._store.dispatch(actionsRegisters.GET_SHOWTAB({
-              payload: [
-                'read', 'create', 'print', 'profile', 'new_password', 'theme', 'about'
-              ]
-            }))
+            this._store.dispatch(actionsRegisters.GET_SHOWTAB({ payload: this.tabList }))
           }
         }
       })
@@ -240,11 +281,7 @@ export class SettingsComponent extends DashboardComponent implements OnInit, DoC
     this.tabActive = !(tab === this.tab)
     this.showTabContent = false
     this._store.dispatch(actionsRegisters.GET_TAB({ payload: '' }))
-    this._store.dispatch(actionsRegisters.GET_SHOWTAB({
-      payload: [
-        'read', 'create', 'print', 'profile', 'new_password', 'theme', 'about'
-      ]
-    }))
+    this._store.dispatch(actionsRegisters.GET_SHOWTAB({ payload: this.tabList }))
   }
 
   public getTarget(target: string): void {
@@ -252,5 +289,21 @@ export class SettingsComponent extends DashboardComponent implements OnInit, DoC
       this.tabActive = !!(target === this.tab)
       this.showTabContent = true
     }
+  }
+
+  public deleteAccount(): void {
+    this._dialog.open(DialogConfirmComponent, { data: {}, panelClass: 'dialog-default' })
+      .beforeClosed().subscribe(response => {
+        if (response) {
+          this._snackbar.open('excluindo sua conta aguarde...')
+          this._profileService.profileDeleteUser(this.user).pipe(delay(3000)).subscribe(
+            (res) => {
+              this._router.navigateByUrl('/')
+              this._snackbar.open(res.message, 'ok')
+            }, (err) => {
+              this._snackbar.open(err.error.message)
+            })
+        }
+      })
   }
 }

@@ -23,7 +23,8 @@
   .profile,
   .new-password,
   .theme,
-  .about {
+  .about,
+  .account {
     flex: 1;
   }
   ::ng-deep .mat-expansion-panel-body {
@@ -62,7 +63,7 @@
       }
     }
   }
-  .form-buttons button {
+  button {
     @include custom-button-icon-width-text;
   }
   .expansion-panels {

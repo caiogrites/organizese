@@ -9,7 +9,7 @@ import * as actionsLogin from '../../actions/login.actions'
 import * as actionsApp from '../../actions/app.actions'
 import * as actionsProfile from '../../actions/profile.actions'
 import { MatSnackBar } from '@angular/material/snack-bar'
-import { delay, filter, map, startWith } from 'rxjs/operators'
+import { filter, map, startWith } from 'rxjs/operators'
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout'
 import { ScrollService } from 'src/app/services/scroll.service'
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog'
@@ -65,6 +65,7 @@ export class DashboardComponent implements OnInit, DoCheck, AfterViewInit {
   public user: any
   public isLoadingDashboard: boolean = true
   private timeDelay: number = 1500
+  public hideValues: boolean
 
   constructor(
     protected _ipcService?: IpcService,
@@ -95,13 +96,15 @@ export class DashboardComponent implements OnInit, DoCheck, AfterViewInit {
   public ngOnInit(): void {
     this.initialize()
     this._scrollService?.getScrollAsStream().subscribe(per => this.buttonToTop = (per >= 30))
-    this._store?.select(({ http_error, registers, dashboard, profile }: any) => ({
+    this._store?.select(({ http_error, registers, dashboard, profile, app }: any) => ({
       http_error,
       consolidado: dashboard.consolidado,
       autocomplete: dashboard.auto_complete,
-      profile: profile.user
+      profile: profile.user,
+      hide_values: app.hide_values
     })).subscribe(async state => {
       this.consolidado = state.consolidado.total_consolidado
+      this.hideValues = state.hide_values
       this.autocomplete = await this.isEmpty(state.autocomplete)
       this.user = await this.isEmpty(state.profile)
 
@@ -142,7 +145,7 @@ export class DashboardComponent implements OnInit, DoCheck, AfterViewInit {
     return new Promise(resolve => {
       if (!this._utilsService?.isEmpty(payload)) {
         resolve(payload)
-      } 
+      }
     })
   }
 

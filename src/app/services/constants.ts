@@ -38,6 +38,8 @@ export class Constants {
 
     profile_update:'profile/update',
     profile_get: 'profile/get_profile',
+    profile_delete: 'profile/delete',
+
     file_images: 'files/images?name=',
     file_download_list: 'files/download_list',
     file_download: 'files/download'

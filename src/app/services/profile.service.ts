@@ -21,4 +21,8 @@ export class ProfileService {
   public profileGet(): Observable<any> {
     return this.http.get<any>(this.constants.get('profile_get'))
   }
+
+  public profileDeleteUser(payload: any): Observable<any> {
+    return this.http.delete(`${this.constants.get('profile_delete')}/${payload._id}`)
+  }
 }

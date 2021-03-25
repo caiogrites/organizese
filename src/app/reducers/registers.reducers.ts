@@ -14,6 +14,10 @@ const categories: string[] = [
   'Trabalho'
 ].sort()
 
+const tabList: string[] = [
+  'read', 'create', 'print', 'profile', 'new_password', 'theme', 'about', 'account'
+]
+
 const INITIAL_STATE = {
   all: [],
   tab: '',
@@ -28,7 +32,8 @@ const INITIAL_STATE = {
   a_receber: 0,
   a_pagar: 0,
   all_days_period: 1,
-  result_search: []
+  result_search: [],
+  tabList: tabList
 }
 const registersReducers = createReducer(
   INITIAL_STATE,

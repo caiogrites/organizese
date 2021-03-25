@@ -10,8 +10,8 @@
     <div class="span-btn" (click)="selectedTab(target)" [ngStyle]="{'opacity': tabActive ? '0.5' : ''}">
       <mat-icon *ngIf="icon">{{icon}}</mat-icon>
       <p style="display: flex; flex-direction: column;">
-        <span style="margin-left: 8px;">{{label}}</span>
-        <small style="margin-left: 8px;" *ngIf="subtitle">{{subtitle}}</small>
+        <span style="margin-left: 16px;">{{label}}</span>
+        <small style="margin-left: 16px;" *ngIf="subtitle">{{subtitle}}</small>
       </p>
     </div>
   </ng-template>
