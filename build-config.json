@@ -1,0 +1,18 @@
+{
+  "android": {
+    "debug": {
+      "keystore": "/apporganizese.keystore",
+      "storePassword": "123456",
+      "alias": "apporganizesealias",
+      "password": "123456",
+      "keystoreType": "jks"
+    },
+    "release": {
+      "keystore": "/apporganizese.keystore",
+      "storePassword": "123456",
+      "alias": "apporganizesealias",
+      "password": "123456",
+      "keystoreType": "jks"
+    }
+  }
+}
