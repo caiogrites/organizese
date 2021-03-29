@@ -5,9 +5,12 @@
 /tmp
 /out-tsc
 /out
-# Only exists if Bazel was run
 /bazel-out
 /build
+/platforms
+/plugins
+/android
+/ios
 
 # dependencies
 /node_modules
