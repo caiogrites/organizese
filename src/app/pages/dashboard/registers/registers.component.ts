@@ -12,6 +12,7 @@ import { UtilsService } from 'src/app/utils/utis.service'
 import { Constants } from 'src/app/services/constants'
 import { DashboardService } from 'src/app/services/dashboard.service'
 import { delay } from 'rxjs/operators'
+import { CustomSnackbarComponent } from 'src/app/components/custom-snackbar/custom-snackbar.component'
 
 
 @Component({
@@ -48,7 +49,7 @@ export class RegistersComponent extends DashboardComponent implements OnInit, Af
   public days: number = 0
   public user: User
   public isLoadingRegisters: boolean = false
-  
+
 
   public displayedColumns: string[] = [
     'Valor + crescente',
@@ -281,29 +282,11 @@ export class RegistersComponent extends DashboardComponent implements OnInit, Af
     }
   }
   public exportExcel(data: any): void {
-    this._snackbar.open('Criando seu excel...')
-
     const d = data.map((v: any) => ({
       ...v,
       created_at: new Date(v.created_at * 1000).toISOString().substr(0, 10),
       type: v.type === 'incoming' ? 'entrada' : 'saida'
     }))
-
-    this._dashboardService.fetchExcel({ to_excel: d }).subscribe(res => {
-      console.log(res)
-    })
-    // this._dashboardService.fetchExcel({ to_excel: d })
-    //   .pipe(delay(5000))
-    //   .subscribe((data: Blob) => {
-    //     const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' })
-    //     const url = window.URL.createObjectURL(blob)
-    //     const link = document.createElement('a')
-    //     link.href = url
-    //     link.download = 'organizese.xlsx'
-    //     link.click()
-    //     this._snackbar.open('Excel foi criado.', 'ok', { duration: 3000 })
-    //   }, err => {
-    //     this._snackbar.open('Erro não foi possível criar excel', 'ok', { duration: 3000 })
-    //   })
+    this._snackbar.openFromComponent(CustomSnackbarComponent, { data: { to_excel: d } })
   }
 }
