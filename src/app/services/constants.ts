@@ -22,10 +22,13 @@ export class Constants {
     fetch_evolucao_despesas: 'dashboard/fetch_evolucao_despesas',
     fetch_evolucao_detail: 'dashboard/fetch_evolucao_detail',
     fetch_search:'dashboard/search',
+    fetch_excel: 'dashboard/excel',
+    
     new_register: 'dashboard/new_register',
     delete_register: 'dashboard/delete_register',
     update_register: 'dashboard/update_register',
     update_user: 'dashboard/update_user',
+
     get_status_code: 'dashboard/get_status_code',
     get_list_autocomplete: 'dashboard/get_list_autocomplete',
     set_dev_mode: 'dashboard/set_dev_mode',

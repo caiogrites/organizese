@@ -25,10 +25,13 @@ export class DashboardInterceptor implements HttpInterceptor {
     if (token) {
       request = request.clone({ headers: request.headers.set('Token', 'Bearer ' + token) })
     }
+
     if (!request.headers.has('Content-Type')) {
       request = request.clone({ headers: request.headers.set('Content-Type', 'application/json') })
     }
+    
     request = request.clone({ headers: request.headers.set('Accept', 'application/json') })
+
     return next.handle(request).pipe(
       map((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {

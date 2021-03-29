@@ -8,6 +8,8 @@ import { IpcService } from './services/ipc.service'
 import { Constants } from './services/constants'
 import { timeStamp } from 'console'
 import { HttpErrorResponse } from '@angular/common/http'
+import { DomSanitizer } from '@angular/platform-browser'
+import { MatIconRegistry } from '@angular/material/icon'
 
 @Component({
   selector: 'app-root',
@@ -29,7 +31,9 @@ export class AppComponent implements AfterViewInit {
     private _rendereFactory: RendererFactory2,
     private _store: Store,
     private _ipcService: IpcService,
-    private _constants: Constants
+    private _constants: Constants,
+    private _sanitizer: DomSanitizer,
+    private _matIconRegistry: MatIconRegistry,
   ) {
     this.logo = this._constants.get('file_images') + this.getLogo()
     this.renderer = this._rendereFactory.createRenderer(null, null)
@@ -60,6 +64,8 @@ export class AppComponent implements AfterViewInit {
 
 
   public ngAfterViewInit() {
+    this
+      .addSvgIcon("excel-icon")
   }
 
   public initTheme(): void {
@@ -97,5 +103,15 @@ export class AppComponent implements AfterViewInit {
   public reloading(): void {
     // this._store.dispatch(actionsApp.ONLINE())
     window.location.reload()
+  }
+
+  private addSvgIcon(name: string, alias?: string, namespace?: string): this {
+    let path = this._sanitizer.bypassSecurityTrustResourceUrl("assets/" + name + ".svg");
+    alias = alias ? alias : name;
+    if (namespace)
+      this._matIconRegistry.addSvgIconInNamespace(namespace, alias, path);
+    else
+      this._matIconRegistry.addSvgIcon(alias, path);
+    return this;
   }
 }

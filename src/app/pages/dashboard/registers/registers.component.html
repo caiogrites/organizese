@@ -183,7 +183,17 @@
               </tr>
             </tbody>
           </table>
-          <button class="btn-print" mat-raised-button (click)="imprimir()">IMPRIMIR</button>
+          <div class="container-buttons">
+            <button class="btn-print" mat-raised-button (click)="imprimir()">IMPRIMIR</button>
+            <button [matMenuTriggerFor]="menu" class="btn-print" mat-raised-button>EXPORTAR</button>
+
+            <mat-menu #menu="matMenu" overlapTrigger="true" yPosition="above">
+              <button (click)="exportExcel(ELEMENT_ORDER)" mat-menu-item>
+                <mat-icon svgIcon="excel-icon"></mat-icon>
+                <span style="font-weight: 500">EXCEL</span>
+              </button>
+            </mat-menu>
+          </div>
         </ng-container>
 
         <ng-template #noneOfExtractsToPrint>

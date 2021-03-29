@@ -239,9 +239,14 @@ $marginTopButton: 25px;
   }
   .btn-print {
     @include custom-button-icon-width-text;
+    margin-right: 8px;
   }
   .total-geral {
     font-weight: 700;
+  }
+  .container-buttons {
+    display: flex;
+    justify-content: flex-start;
   }
 }
 
