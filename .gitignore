@@ -12,6 +12,8 @@
 /android
 /ios
 /plugins
+/www
+/www/*
 
 # dependencies
 /node_modules
