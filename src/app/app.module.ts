@@ -29,7 +29,8 @@ import { MomentDateAdapter } from '@angular/material-moment-adapter'
 import { OwlModule } from 'ngx-owl-carousel'
 import { DashboardModule } from './pages/dashboard/dashboard.module'
 import { LoaderComponent } from './components/loader/loader.component'
-import { getSaver, SAVER } from './providers/save.provider'
+import { getSaver, SAVER } from './providers/save.provider';
+import { CustomSnackbarComponent } from './components/custom-snackbar/custom-snackbar.component'
 // import { getSaver, SAVER } from './providers/save.provider'
 
 registerLocaleData(localePt, 'pt-BR')
@@ -47,6 +48,7 @@ const indexedConfig: DBConfig = {
   declarations: [
     AppComponent,
     HomeComponent,
+    CustomSnackbarComponent,
   ],
   imports: [
     BrowserModule,

@@ -11,6 +11,9 @@
 /plugins
 /android
 /ios
+/android
+/ios
+/plugins
 
 # dependencies
 /node_modules
